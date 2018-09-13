@@ -1,34 +1,48 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>PDO - Update a Record - PHP CRUD Tutorial</title>
 
-    <!-- Latest compiled and minified Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
-</head>
-<body>
 
-    <!-- container -->
-    <div class="container">
-
-        <div class="page-header">
-            <h1>Update Product</h1>
-        </div>
-
-        <!-- PHP read record by ID will be here -->
-
+        <h3>Checking<?php $bird->name ?></h3>
+        <?php if($bird->name){
+          echo "<p>access to bird description</p>";
+        }else{
+          echo "<p>" . $bird->name . "</p>";
+        }?>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}");?>" method="post">
         <table class='table table-hover table-responsive table-bordered'>
             <tr>
                 <td>Name</td>
-                <td><input type='text' name='name' value="<?php echo htmlspecialchars($name, ENT_QUOTES);  ?>" class='form-control' /></td>
+                <td><input type='text' name='name' value="<?php echo $bird->name ?>" class='form-control' /></td>
             </tr>
             <tr>
                 <td>Description</td>
-                <td><textarea name='description' class='form-control'><?php echo htmlspecialchars($description, ENT_QUOTES);  ?></textarea></td>
+                <td><textarea name='description' class='form-control'><?php echo $bird->description  ?></textarea></td>
             </tr>
-        
+            <tr>
+                <td>Category</td>
+                <?php
+                  $stmt = $category->read();
+                 ?>
+                 <select class='form-control' name='category_id'>
+                   <option>
+                     Please select ...
+                   </option>
+                   <?php
+                      while($row_category = $stmt->fetch(PDO::FETCH_ASSOC)){
+                        $category_id = $row_category['id'];
+                        $category_name = $row_category['name'];
+                        if($bird->category_id == $category_id){
+                          echo "<option value='$category_id' selected>";
+
+                        }
+                        else{
+                          echo "<option value='$category_id'>";
+                        }
+                        echo "$category_name</option>";
+                      }
+
+                   ?>
+                 </select>
+            </tr>
             <tr>
                 <td></td>
                 <td>
@@ -38,14 +52,3 @@
             </tr>
         </table>
     </form>
-
-    </div> <!-- end .container -->
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
-<!-- Latest compiled and minified Bootstrap JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-</body>
-</html>

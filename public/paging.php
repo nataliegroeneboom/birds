@@ -1,23 +1,18 @@
 <?php
-echo "<ul class='pagination pull-left margin-zero mt0'>";
+echo "<ul class='pagination'>";
 
+// button for first page
 if($page>1){
-
-    $prev_page = $page - 1;
-    echo "<li>";
-        echo "<a href='{$page_url}page={$prev_page}'>";
-            echo "<span style='margin:0 .5em;'>&laquo;</span>";
-        echo "</a>";
-    echo "</li>";
+    echo "<li><a href='{$page_url}' title='Go to the first page.'>";
+        echo "First";
+    echo "</a></li>";
 }
 
-// clickable page numbers
-
-// find out total pages
+// calculate total pages
 $total_pages = ceil($total_rows / $records_per_page);
 
-// range of num links to show
-$range = 1;
+// range of links to show
+$range = 2;
 
 // display links to 'range of pages' around 'current page'
 $initial_num = $page - $range;
@@ -30,29 +25,21 @@ for ($x=$initial_num; $x<$condition_limit_num; $x++) {
 
         // current page
         if ($x == $page) {
-            echo "<li class='active'>";
-                echo "<a href='javascript::void();'>{$x}</a>";
-            echo "</li>";
+            echo "<li class='active'><a href=\"#\">$x <span class=\"sr-only\">(current)</span></a></li>";
         }
 
         // not current page
         else {
-            echo "<li>";
-                echo " <a href='{$page_url}page={$x}'>{$x}</a> ";
-            echo "</li>";
+            echo "<li><a href='{$page_url}page=$x'>$x</a></li>";
         }
     }
 }
 
-// last page button
+// button for last page
 if($page<$total_pages){
-    $next_page = $page + 1;
-
-    echo "<li>";
-        echo "<a href='{$page_url}page={$next_page}'>";
-            echo "<span style='margin:0 .5em;'>&raquo;</span>";
-        echo "</a>";
-    echo "</li>";
+    echo "<li><a href='" .$page_url. "page={$total_pages}' title='Last page is {$total_pages}.'>";
+        echo "Last";
+    echo "</a></li>";
 }
 
 echo "</ul>";

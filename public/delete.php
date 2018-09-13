@@ -1,18 +1,27 @@
 <?php
-include 'database.php';
+if($_POST){
 
-try{
-$id = isset($_GET['id'])? $_GET['id'] : die('ERROR: Record ID not found');
-$query = "DELETE FROM birds WHERE id = ?";
-$stmt = $pdo->prepare($query);
-$stmt->bindParam(1, $id);
+    // include database and object file
+    include_once '../config/database.php';
+    include_once '../objects/product.php';
 
-if($stmt->execute()){
-  header('Location: index.php?action=deleted');
-}else{
-  die('Unable to delete record');
-}
-}
-catch(PDOException $e){
-  die('ERROR: ' . $e->getMessage());
+    // get database connection
+    $database = new Database();
+    $db = $database->getConnection();
+
+    // prepare product object
+    $bird = new Bird($db);
+
+    // set product id to be deleted
+    $bird->id = $_POST['object_id'];
+
+    // delete the product
+    if($bird->delete()){
+        echo "Object was deleted.";
+    }
+
+    // if unable to delete the product
+    else{
+        echo "Unable to delete object.";
+    }
 }

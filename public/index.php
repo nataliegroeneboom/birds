@@ -1,9 +1,4 @@
 <?php
-// include database connection
-include 'database.php';
-
-include __DIR__ . '/../templates/list.html.php';
-$action = isset($_GET['action']) ? $_GET['action'] : "";
 // PAGINATION VARIABLES
 // page is the current page, if there's nothing set, default is page 1
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -14,24 +9,45 @@ $records_per_page = 5;
 // calculate for the query LIMIT clause
 $from_record_num = ($records_per_page * $page) - $records_per_page;
 
+
+$page_title="Bird Encyclopaedia";
+include_once __DIR__ . '/../templates/header.html.php';
+
+// include database connection
+
+
+$action = isset($_GET['action']) ? $_GET['action'] : "";
+
+
+//database and object files
+include_once '../config/database.php';
+include_once '../objects/bird.php';
+include_once '../objects/category.php';
+
+// instantiate database and objects
+$database = new Database();
+$db = $database->getConnection();
+
+$bird = new Bird($db);
+$category = new Category($db);
+
+//query products
+$stmt = $bird->readAll($from_record_num, $records_per_page);
+// this is how to get number of rows returned
+ $num = $stmt->rowCount();
+
+
 if($action == 'deleted'){
   echo "<div class='alert alert-success'>
   Record was deleted </div>";
 }
 
-// select all data
-$query = "SELECT id, name, description FROM birds ORDER BY id DESC
-    LIMIT :from_record_num, :records_per_page";
-$stmt = $pdo->prepare($query);
-$stmt->bindParam(":from_record_num", $from_record_num, PDO::PARAM_INT);
-$stmt->bindParam(":records_per_page", $records_per_page, PDO::PARAM_INT);
-$stmt->execute();
 
-// this is how to get number of rows returned
-$num = $stmt->rowCount();
+
+
 
 // link to create record form
-echo "<a href='create.php' class='btn btn-primary m-b-1em'>Create New Product</a>";
+echo "<div class='right-button-margin'><a href='create.php' class='btn btn-default pull-right'>Create New Product</a></div>";
 
 //check if more than 0 record found
 if($num>0){
@@ -40,9 +56,9 @@ if($num>0){
 
       //creating our table heading
       echo "<tr>";
-          echo "<th>ID</th>";
-          echo "<th>Name</th>";
+          echo "<th>Bird</th>";
           echo "<th>Description</th>";
+          echo "<th>Category</th>";
           echo "<th>Action</th>";
       echo "</tr>";
 
@@ -56,39 +72,38 @@ if($num>0){
 
           // creating new table row per record
           echo "<tr>";
-              echo "<td>{$id}</td>";
               echo "<td>{$name}</td>";
               echo "<td>{$description}</td>";
               echo "<td>";
+                 $category->id = $category_id;
+                 $category->readName();
+                 echo "</td>";
+              echo "<td>";
                   // read one record
-                  echo "<a href='individual.php?id={$id}' class='btn btn-info m-r-1em'>Read</a>";
+                  echo "<a href='individual.php?id={$id}' class='btn btn-primary m-r-1em'>Read</a>";
 
                   // Edit post
-                  echo "<a href='update.php?id={$id}' class='btn btn-primary m-r-1em'>Edit</a>";
+                  echo "<a href='update.php?id={$id}' class='btn btn-info m-r-1em'>Edit</a>";
 
                   // Delete this post
-                  echo "<a href='#' onclick='delete_bird({$id});'  class='btn btn-danger'>Delete</a>";
+                  echo "<a delete-id='{$id}' class='btn btn-danger delete-object'>";
+                    echo "<span class='glyphicon glyphicon-remove'></span> Delete";
+                      echo "</a>";
               echo "</td>";
           echo "</tr>";
       }
 
   // end table
   echo "</table>";
-  // PAGINATION
-  // count total number of rows
-  $query = "SELECT COUNT(*) as total_rows FROM birds";
-  $stmt = $pdo->prepare($query);
 
-  // execute query
-  $stmt->execute();
+  $page_url = "index.php?";
 
-  // get total rows
-  $row = $stmt->fetch(PDO::FETCH_ASSOC);
-  $total_rows = $row['total_rows'];
+// count all products in the database to calculate total pages
+$total_rows = $bird->countAll();
 
-  // paginate records
-   $page_url="index.php?";
-  include_once "paging.php";
+// paging buttons here
+include_once 'paging.php';
+
 
 }
 
@@ -96,3 +111,5 @@ if($num>0){
 else{
     echo "<div class='alert alert-danger'>No records found.</div>";
 }
+
+include "../templates/footer.html.php";

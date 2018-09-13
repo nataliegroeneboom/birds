@@ -4,16 +4,14 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bird Encyclopedia</title>
+  <title><?php echo $page_title ?></title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<style>
-
-</style>
+  <link re="stylesheet" href="../libs/css/custom.css" />
 </head>
 <body>
 <div class="container"><!-- container -->
   <div class="page-header">
-    <h1>List of Australian Birds</h1>
+    <h1><?=$page_title ?></h1>
   </div>
 
 

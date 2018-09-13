@@ -1,54 +1,52 @@
-<!DOCTYPE html>
+
+
 <html>
-<head>
-    <title>Bird Encyclopedia</title>
 
-    <!-- Latest compiled and minified Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
-</head>
-<body>
+<!-- HTML form for creating a product -->
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 
-    <!-- container -->
-    <div class="container">
+    <table class='table table-hover table-responsive table-bordered'>
 
-        <div class="page-header">
-            <h1>Add Bird Species</h1>
-        </div>
+        <tr>
+            <td>Name</td>
+            <td><input type='text' name='name' class='form-control' /></td>
+        </tr>
 
-        <!-- html form here where the product information will be entered -->
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" enctype="multipart/form-data">
-            <table class='table table-hover table-responsive table-bordered'>
-                <tr>
-                    <td>Bird</td>
-                    <td><input type='text' name='name' class='form-control' /></td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td><textarea name='description' class='form-control'></textarea></td>
-                </tr>
-                <tr>
-                      <td>Photo</td>
-                      <td><input type="file" name="image" /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type='submit' value='Save' class='btn btn-primary' />
-                        <a href='index.php' class='btn btn-danger'>Back to read products</a>
-                    </td>
-                </tr>
-            </table>
-        </form>
+        <tr>
+            <td>Description</td>
+            <td><textarea name='description' class='form-control'></textarea></td>
+        </tr>
 
-    </div> <!-- end .container -->
+        <tr>
+            <td>Category</td>
+            <td>
+              <?php
+  // read the product categories from the database
+  $stmt = $category->read();
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  // put them in a select drop-down
+  echo "<select class='form-control' name='category_id'>";
+      echo "<option>Select category...</option>";
 
-<!-- Latest compiled and minified Bootstrap JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      while ($row_category = $stmt->fetch(PDO::FETCH_ASSOC)){
+          extract($row_category);
+          echo "<option value='{$id}'>{$name}</option>";
+      }
 
-</body>
+  echo "</select>";
+  ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </td>
+        </tr>
+
+    </table>
+</form>
 
 </html>
