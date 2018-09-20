@@ -4,7 +4,7 @@
 
 
 <!-- HTML form for creating a product -->
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" enctype="multipart/form-data">
 
     <table class='table table-hover table-responsive table-bordered'>
 
@@ -37,6 +37,14 @@
   echo "</select>";
   ?>
             </td>
+        </tr>
+        <tr>
+          <td>
+            Photo
+          </td>
+          <td>
+            <input type="file" name="image"  />
+          </td>
         </tr>
 
         <tr>

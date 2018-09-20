@@ -21,6 +21,7 @@ if($_POST){
     $bird->name = $_POST['name'];
     $bird->description = $_POST['description'];
     $bird->category_id = $_POST['category_id'];
+    $image=!empty($_FILES['image']["name"])?sha1_file($FILES['image']['tmp_name']) . "-" . basename($_FILES['image']['name']) : "";
 
     // create the product
     if($bird->create()){
