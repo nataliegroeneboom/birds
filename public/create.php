@@ -21,11 +21,12 @@ if($_POST){
     $bird->name = $_POST['name'];
     $bird->description = $_POST['description'];
     $bird->category_id = $_POST['category_id'];
-    $image=!empty($_FILES['image']["name"])?sha1_file($FILES['image']['tmp_name']) . "-" . basename($_FILES['image']['name']) : "";
-
+    $image=!empty($_FILES['image']["name"])?sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES['image']['name']) : "";
+    $bird->image = $image;
     // create the product
     if($bird->create()){
         echo "<div class='alert alert-success'>Bird was created.</div>";
+        echo $bird->uploadPhoto();
     }
 
     // if unable to create the product, tell the user
