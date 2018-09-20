@@ -3,7 +3,7 @@ if($_POST){
 
     // include database and object file
     include_once '../config/database.php';
-    include_once '../objects/product.php';
+    include_once '../objects/bird.php';
 
     // get database connection
     $database = new Database();
@@ -13,11 +13,12 @@ if($_POST){
     $bird = new Bird($db);
 
     // set product id to be deleted
-    $bird->id = $_POST['object_id'];
+    $bird->id = $_POST['id'];
 
     // delete the product
     if($bird->delete()){
         echo "Object was deleted.";
+         header('location: index.php');
     }
 
     // if unable to delete the product

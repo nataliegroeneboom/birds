@@ -16,7 +16,8 @@
 // JavaScript for deleting product
 $(document).on('click', '.delete-object', function(){
 
-    var id = $(this).attr('delete-id');
+    const id = $(this).attr('delete-id');
+    console.log(id);
 
     bootbox.confirm({
         message: "<h4>Are you sure?</h4>",
