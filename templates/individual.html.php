@@ -18,7 +18,7 @@
    <tr>
      <td>Image</td>
      <td>
-       <?php echo $bird->image? "<img src='/uploads/{$bird->image}' style='width:300px' />": "No image found"; ?>
+       <?php echo $bird->image? "<img src='files/{$bird->image}' style='width:300px' />": "No image found"; ?>
      </td>
    </tr>
 </table>
