@@ -5,10 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><?php echo $page_title ?></title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link re="stylesheet" href="../libs/css/custom.css" />
+  <!-- Bootstrap CSS -->
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+  <link rel="stylesheet" type="text/css" href="http://wildlife.ddev.local/libs/custom.css" />
+<link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">
 </head>
 <body>
+<?php include_once "navigation.html.php" ?>
 <div class="container"><!-- container -->
   <div class="page-header">
     <h1><?=$page_title ?></h1>

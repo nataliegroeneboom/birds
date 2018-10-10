@@ -68,6 +68,18 @@ class Bird{
     return $stmt;
 }
 
+//used for gallery
+
+public function readRandom(){
+  $query = "SELECT id, name, image FROM "
+  . $this->table_name . "
+  ORDER BY RAND() LIMIT 10";
+
+  $stmt = $this->conn->prepare( $query );
+  $stmt->execute();
+  return $stmt;
+}
+
 // used for paging products
 public function countAll(){
 

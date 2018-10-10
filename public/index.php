@@ -1,3 +1,5 @@
+
+
 <?php
 // core.php holds pagination variables
 include_once '../config/core.php';
@@ -8,13 +10,16 @@ include_once '../objects/bird.php';
 include_once '../objects/category.php';
 
 // instantiate database and product object
+
+
+
 $database = new Database();
 $db = $database->getConnection();
 
 $bird = new Bird($db);
 $category = new Category($db);
 
-$page_title = "Bird Encyclopedia";
+$page_title = "Index";
 include_once "../templates/header.html.php";
 
 // query products
@@ -25,6 +30,20 @@ $page_url = "index.php?";
 
 // count total rows - used for pagination
 $total_rows=$bird->countAll();
+$action = isset($_GET['action']) ? $_GET['action'] : '';
+
+if($action=='login_success'){
+  echo "<div class='alert alert-info'><strong>Hi " . $_SESSION['firstname'] . ", wecome back!";
+  echo"</strong></div>";
+}
+else if($action=='already_logged_in'){
+  echo "<div>
+  <strong>You are already logged in</strong>
+  </div>";
+}
+echo "<div class='alert alert-info'>
+content when logged in will be here
+</div>";
 
 // read_template.php controls how the product list will be rendered
 include_once "read_template.php";
