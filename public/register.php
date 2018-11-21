@@ -20,26 +20,39 @@ if($_POST){
 
   $user->email=$_POST['email'];
 
+  $test = $user->emailExists();
+
+
   if($user->emailExists()){
     echo "<div class='alert alert-danger'>
     The email you have specified already exists
     </div>";
   }else{
+
     $user->firstname=$_POST['firstname'];
     $user->lastname= $_POST['lastname'];
     $user->contact_number = $_POST['contact_number'];
     $user->address = $_POST['address'];
     $user->password=$_POST['password'];
     $user->access_level = 'Customer';
+    $user->access_code = 0;
     $user->status=1;
 
-    if($user->create()){
-      echo "<div class='alert alert-info'>";
-        echo "Successfully registered. <a href='{$home_url}login.php'>Please login</a>.";
-    echo "</div>";
 
-    //empty posted values
-    $_POST=array();
+    if($user->create()){
+     if($user->createProfile()){
+         echo "<div class='alert alert-info'>";
+         echo "Successfully registered. <a href='{$home_url}login.php'>Please login</a>.";
+         echo "</div>";
+
+
+         //empty posted values
+         $_POST=array();
+
+
+     };
+
+
   }  else{
 
     echo "<div class='alert alert-danger' role='alert'>Unable to register. Please try again.</div>";

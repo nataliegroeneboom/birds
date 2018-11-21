@@ -1,4 +1,7 @@
 <?php
+include_once "../config/core.php";
+$page_title = "Gallery";
+
 include_once '../config/database.php';
 include_once '../objects/bird.php';
 
@@ -10,7 +13,6 @@ $total_rows=$bird->countAll();
 
 if($total_rows>0){
   $stmt = $bird->readRandom();
-  $page_title = "Australian Birds";
 include_once "../templates/header.html.php";
 
   include_once "../templates/gallery.html.php";

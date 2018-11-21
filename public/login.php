@@ -3,9 +3,8 @@
 include_once "../config/core.php";
 $page_title = "Login";
 
-$required_login=false;
+$require_login=false;
 include_once "login_checker.php";
-
 
 $access_denied=false;
 
@@ -20,7 +19,6 @@ if($_POST){
   $email_exists = $user->emailExists();
   //login validation goes here
   if ($email_exists && password_verify($_POST['password'], $user->password) && $user->status==1){
-
       // if it is, set the session value to true
       $_SESSION['logged_in'] = true;
       $_SESSION['user_id'] = $user->id;

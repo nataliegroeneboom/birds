@@ -1,5 +1,5 @@
 <?php
-if(isset($_SESSION['access_level'])&&$_SESSION['access_level']=="Customer"){
+if(isset($_SESSION['access_level'])&&$_SESSION['access_level']=="Admin"){
   header("Location:{$home_url}admin/index.php?action=logged_in_as_admin");
 }
 else if(isset($require_login)&&$require_login==true){

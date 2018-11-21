@@ -1,6 +1,6 @@
 
 
-<html>
+
 
 
 <!-- HTML form for creating a product -->
@@ -57,4 +57,3 @@
     </table>
 </form>
 
-</html>

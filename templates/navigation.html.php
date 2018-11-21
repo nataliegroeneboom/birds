@@ -7,32 +7,46 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<?php echo $home_url; ?>">Your Site</a>
+        <a class="navbar-brand" href="<?php echo $home_url; ?>">Bird Encyclopedia</a>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li <?php echo $page_title==="Index"?"class='active'":"";?>>
-                <a href="<?= $home_url; ?>">Home</a>
+                <a href="<?= $home_url ?>">Home</a>
           </li>
         </ul>
         <?php
         // if user was logged in, show "Edit Profile", "Orders" and "Logout" option
         if(isset($_SESSION['logged_in'])&&$_SESSION['logged_in']==true && $_SESSION['access_level']=='Customer'){
 ?>
-        <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-left">
+      <li <?php echo $page_title==="About Us"?"class='active'":"";?>>
+        <a href="<?=$home_url; ?>about.php">About</a>
+      </li>
+      <li <?php echo $page_title==="Glossary"?"class='active'":"";?>>
+        <a href="<?=$home_url; ?>glossary.php">Glossary</a>
+      </li>
+      <li <?php echo $page_title==="Gallery"?"class='active'":"";?>>
+        <a href="<?=$home_url; ?>gallery.php">Gallery</a>
+      </li>
+        <li <?php echo $page_title==="Your Page"?"class='active'":"";?>>
+            <a href="<?=$home_url; ?>your_page.php">Your Page</a>
+        </li>
+    </ul>
+
+        <ul class="nav navbar-nav navbar-right" style="margin-bottom:0;">
           <li<?=$page_title=="Edit Profile"?"class='active'":"";?>>
             <a href='#' class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
               <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
               &nbsp;&nbsp;<?=$_SESSION['firstname']; ?>
-              &nbsp;&nbsp;<span class="caret"></span>
+              &nbsp;&nbsp;
+               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
               <li>
                 <a href="<?=$home_url; ?>logout.php">Logout</a>
               </li>
-              <li>
-                <a href="<?=$home_url; ?>gallery.php">Gallery</a>
-              </li>
+
             </ul>
           </li>
         </ul>
@@ -59,4 +73,10 @@
       </div><!--/.nav-collapse-->
     </div>
 </div>
+
 <!--/.navbar-->
+<div class="hero">
+<div class="darken-overlay">
+  <h1>Explore the world of Australian Birds</h1>
+</div>
+</div>

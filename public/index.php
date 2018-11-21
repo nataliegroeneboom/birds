@@ -20,6 +20,8 @@ $bird = new Bird($db);
 $category = new Category($db);
 
 $page_title = "Index";
+$require_login = true;
+include_once "login_checker.php";
 include_once "../templates/header.html.php";
 
 // query products
@@ -31,6 +33,8 @@ $page_url = "index.php?";
 // count total rows - used for pagination
 $total_rows=$bird->countAll();
 $action = isset($_GET['action']) ? $_GET['action'] : '';
+
+
 
 if($action=='login_success'){
   echo "<div class='alert alert-info'><strong>Hi " . $_SESSION['firstname'] . ", wecome back!";

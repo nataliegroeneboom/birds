@@ -2,11 +2,11 @@
 
 include_once "../../config/core.php";
 
-include_once "login_checker.php";
+//include_once "login_checker.php";
 
 $page_title="Admin Index";
 
-include_once 'templates/header.html.php';
+include_once 'header.html.php';
 
 echo "<div class='col-md-12'>";
 

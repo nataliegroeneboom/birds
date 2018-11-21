@@ -1,4 +1,5 @@
 <?php
+
 if(empty($SESSION['logged_in'])){
   header("Location: {$home_url}login.php?action=not_yet_logged_in");
 

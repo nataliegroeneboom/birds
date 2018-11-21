@@ -12,6 +12,9 @@ class Bird{
     public $image;
     public $category_id;
     public $timestamp;
+    public $population;
+    public $location;
+    public $status;
 
     public function __construct($db){
         $this->conn = $db;
@@ -24,7 +27,8 @@ class Bird{
         $query = "INSERT INTO
                     " . $this->table_name . "
                 SET
-                    name=:name, description=:description, image=:image, category_id=:category_id, created=:created";
+                    name=:name, description=:description, image=:image, category_id=:category_id, created=:created,
+                    population=:population, location-:location, status=:status";
 
         $stmt = $this->conn->prepare($query);
 
@@ -33,6 +37,11 @@ class Bird{
         $this->description=htmlspecialchars(strip_tags($this->description));
         $this->image=htmlspecialchars(strip_tags($this->image));
         $this->category_id=htmlspecialchars(strip_tags($this->category_id));
+        $this->population=htmlspecialchars(strip_tags($this->population));
+        $this->location=htmlspecialchars(strip_tags($this->location));
+        $this->status=htmlspecialchars(strip_tags($this->status));
+
+
 
         // to get time-stamp for 'created' field
         $this->timestamp = date('Y-m-d H:i:s');
@@ -43,6 +52,9 @@ class Bird{
         $stmt->bindParam(":image", $this->image);
         $stmt->bindParam(":category_id", $this->category_id);
         $stmt->bindParam(":created", $this->timestamp);
+        $stmt->bindParam(":population", $this->population);
+        $stmt->bindParam(":location", $this->location);
+        $stmt->bindParam(":status", $this->status);
 
         if($stmt->execute()){
             return true;
@@ -94,7 +106,7 @@ public function countAll(){
 }
 
 function readOne(){
-  $query= "SELECT name, description, category_id, image
+  $query= "SELECT name, description, category_id, image, population, location, status
   FROM " . $this->table_name . "
   WHERE id = ?
   LIMIT 0,1";
@@ -107,6 +119,9 @@ function readOne(){
   $this->description = $row['description'];
   $this->category_id = $row['category_id'];
   $this->image = $row['image'];
+  $this->population = $row['population'];
+  $this->location = $row['location'];
+  $this->status = $row['status'];
 }
 
 function update(){

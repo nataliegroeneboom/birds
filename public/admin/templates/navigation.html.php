@@ -12,9 +12,9 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li <?php echo $page_title==="Admin Index"?"class='active'":"";?>>
-                <a href="<?= $home_url; ?>">Home</a>
+                <a href="<?= $home_url; ?>admin/index.php">Home</a>
           </li>
-          <li <?php echo $page_title==="Users"?"class='active'":"";?>>
+          <li <?php echo $page_title=="Users"?"class='active'":"";?>>
                 <a href="<?= $home_url; ?>admin/read_users.php">Users</a>
           </li>
         </ul>
