@@ -3,6 +3,7 @@
   <!-- get 'action' value in url parameter to display corresponding prompt message -->
 <?php
   $action=isset($_GET['action'])?$_GET['action']:'';
+
   if($action =='not_yet_logged_in'){
 ?>
 <div class='alert alert-danger margin-top-40' role='alert'>

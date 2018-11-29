@@ -40,7 +40,7 @@ if($_POST){
 
 
     if($user->create()){
-     if($user->createProfile()){
+
          echo "<div class='alert alert-info'>";
          echo "Successfully registered. <a href='{$home_url}login.php'>Please login</a>.";
          echo "</div>";
@@ -50,7 +50,7 @@ if($_POST){
          $_POST=array();
 
 
-     };
+
 
 
   }  else{

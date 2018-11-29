@@ -19,12 +19,24 @@ if($_POST){
   $email_exists = $user->emailExists();
   //login validation goes here
   if ($email_exists && password_verify($_POST['password'], $user->password) && $user->status==1){
-      // if it is, set the session value to true
+
+
+
       $_SESSION['logged_in'] = true;
       $_SESSION['user_id'] = $user->id;
       $_SESSION['access_level'] = $user->access_level;
       $_SESSION['firstname'] = htmlspecialchars($user->firstname, ENT_QUOTES, 'UTF-8') ;
       $_SESSION['lastname'] = $user->lastname;
+
+
+      if($user->profileExists()){
+
+      }else{
+          $user->createProfile();
+      }
+
+
+
 
       // if access level is 'Admin', redirect to admin section
       if($user->access_level=='Admin'){
@@ -33,6 +45,8 @@ if($_POST){
 
       // else, redirect only to 'Customer' section
       else{
+
+
           header("Location: {$home_url}index.php?action=login_success");
       }
   }

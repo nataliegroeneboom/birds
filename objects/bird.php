@@ -228,8 +228,10 @@ public function countAll_BySearch($search_term){
     return $row['total_rows'];
 }
 
+
 function uploadPhoto(){
   $result_message="";
+  $file_upload_error_messages = "";
   if($this->image){
     $target_directory = "files/";
     $target_file = $target_directory . $this->image;
@@ -279,7 +281,7 @@ function uploadPhoto(){
       $result_message.=  "</div>";
     }
     }else{
-      $file_upload_error_message .="<div>
+      $file_upload_error_messages .="<div>
       Submitted file is not an image.
       </div>";
 
@@ -288,6 +290,15 @@ function uploadPhoto(){
   }
   return $result_message;
 
+}
+
+function autoCompleteSearch($search_term){
+        $query = "SELECT * FROM " . $this->table_name . " WHERE name LIKE ?";
+        $stmt = $this->conn->prepare($query);
+    $search = "%{$search_term}%";
+    $stmt->bindParam(1, $search);
+    $stmt->execute();
+    return $stmt;
 }
 
 }

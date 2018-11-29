@@ -18,6 +18,7 @@ public $status;
 public $created;
 public $modified;
 public $profileStatus;
+public $image;
 
 
 
@@ -85,6 +86,7 @@ function create(){
     // to get time stamp for 'created' field
     $this->created=date('Y-m-d H:i:s');
 
+
     // insert query
     $query = "INSERT INTO
                 " . $this->table_name . "
@@ -99,6 +101,7 @@ function create(){
                 access_code = :access_code,
                 status = :status,
                 created = :created";
+
 
     // prepare the query
     $stmt = $this->conn->prepare($query);
@@ -141,21 +144,144 @@ function create(){
 
 }
 
-function createProfile(){
-         $userId = $this->id;
-         $query = "INSERT INTO profileimage(userid, status) VALUES ($userId, 1)";
-         $stmt = $this->conn->prepare($query);
-            if($stmt->execute()){
-                return true;
-            }else{
-                $this->showError($stmt);
-                return false;
-            }
-            
-
-
-
+function profileExists(){
+          $query = "SELECT * FROM profileimage WHERE user_id = ? LIMIT 0,1";
+          $stmt = $this->conn->prepare($query);
+          $stmt->bindParam(1, $this->id);
+          $stmt->execute();
+          $num = $stmt->rowCount();
+          if($num>0){
+              $row = $stmt->fetch(PDO::FETCH_ASSOC);
+              $this->profileStatus = $row['status'];
+              return true;
+          }else{
+              return false;
+          }
 }
+
+function createProfile(){
+          $userStatus = 1;
+          $this->conn->beginTransaction();
+
+          try{
+              $query = "INSERT INTO profileimage(user_id) SELECT id FROM ". $this->table_name ." WHERE id = ?";
+              $stmt = $this->conn->prepare($query);
+              $stmt->execute(array($this->id));
+
+              $query = "UPDATE profileimage SET status = ? WHERE ID = ?";
+              $stmt = $this->conn->prepare($query);
+              $stmt->bindParam(1, $userStatus);
+              $stmt->bindParam(2, $this->id);
+              $stmt->execute();
+
+              $this->conn->commit();
+
+
+
+          }catch(Exception $e){
+              echo $e->getMessage();
+              $this->conn->rollBack();
+          }
+}
+
+    function uploadPhotoTable(){
+        $query = "UPDATE profileimage SET photo=? WHERE user_id=?";
+        $stmt = $this->conn->prepare($query);
+        $this->image;
+        $stmt->bindParam(1, $this->image);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+    }
+
+
+//adding profile image
+
+    function uploadProfilePhoto(){
+        $result_message="";
+        $file_upload_error_messages = "";
+        if($this->image){
+            $target_directory = "images/";
+            $target_file = $target_directory . $this->image;
+            $file_type = pathinfo($target_file, PATHINFO_EXTENSION);
+            $this->image = "profile" . $this->id . "." . $file_type;
+            $new_target_file = $target_directory . "profile" . $this->id . "." . $file_type;
+            $file_upload_error_messages = '';
+
+
+            $check = getimagesize($_FILES["image"]["tmp_name"]);
+            if($check!==false){
+                // make sure certain file types are allowed
+                $allowed_file_types=array("jpg", "jpeg", "png", "gif");
+                if(!in_array($file_type, $allowed_file_types)){
+                    $file_upload_error_messages.="<div>Only JPG, JPEG, PNG, GIF files are allowed.</div>";
+                }
+                // make sure file does not exist
+                if(file_exists($new_target_file)){
+                    $file_upload_error_messages.="<div>Image already exists. Try to change file name.</div>";
+                }
+                // make sure submitted file is not too large, can't be larger than 1 MB
+                if($_FILES['image']['size'] > (4024000)){
+                    $file_upload_error_messages.="<div>Image must be less than 4 MB in size.</div>";
+                }
+                // make sure the 'uploads' folder exists
+                // if not, create it
+                if(!is_dir($target_directory)){
+                    mkdir($target_directory, 0777, true);
+                }
+                // if $file_upload_error_messages is still empty
+                if(empty($file_upload_error_messages)){
+                    // it means there are no errors, so try to upload the file
+                    if(move_uploaded_file($_FILES["image"]["tmp_name"], $new_target_file)){
+                        // it means photo was uploaded
+                        $query = "UPDATE profileimage SET photo=? WHERE id=?";
+                        $stmt = $this->conn->prepare($query);
+                        $stmt->execute(array($this->image, $this->id));
+                        $newStatus = 0;
+                        $sql = "UPDATE profileimage SET status = ?";
+                        $stmt = $this->conn->prepare($sql);
+                        $stmt->bindParam(1, $newStatus);
+                        $stmt->execute();
+                    }else{
+                        $result_message.= "<div class='alert alert-danger'>";
+                        $result_message.=  "<div>Unable to upload photo.</div>";
+                        $result_message.=  "<div>Update the record to upload photo.</div>";
+                        $result_message.= "</div>";
+                    }
+                }
+
+                // if $file_upload_error_messages is NOT empty
+                else{
+                    // it means there are some errors, so show them to user
+                    $result_message.=  "<div class='alert alert-danger'>";
+                    $result_message.=  "<div>{$file_upload_error_messages}</div>";
+                    $result_message.=  "<div>Update the record to upload photo.</div>";
+                    $result_message.=  "</div>";
+                }
+            }else{
+                $file_upload_error_messages .="<div>
+      Submitted file is not an image.
+      </div>";
+
+            }
+
+        }
+        return $result_message;
+
+    }
+
+    function readProfile(){
+        $query= "SELECT photo, status
+  FROM profileimage
+  WHERE user_id = ?
+  LIMIT 0,1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->id);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->image = $row['photo'];
+        $this->profileStatus = $row['status'];
+
+    }
 
         function readAll($from_record_num, $records_per_page){
             $query = "SELECT

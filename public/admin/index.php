@@ -24,8 +24,9 @@ echo "<div class='alert alert-info'>
   </div>";
 }
 
-echo "<div class='alert alert-info'>
-Contents of your admin section will be here
+echo "<div class='admin-content'>
+<button><a href='content.php'>Add a Bird</a></button>
+
 </div>";
 
 echo "</div>";
