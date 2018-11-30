@@ -14,6 +14,7 @@ class Bird{
     public $timestamp;
     public $population;
     public $location;
+    public $location_id;
     public $status;
 
     public function __construct($db){

@@ -39,6 +39,40 @@
             </td>
         </tr>
         <tr>
+            <td>Location</td>
+            <td>
+            <?php
+
+            $stmt_location = $location->read();
+
+            echo "<select class='form-control' name='location_id'>";
+                echo "<option> Select Location... </option>";
+
+                while($row_category = $stmt_location->fetch(PDO::FETCH_ASSOC)) {
+                    extract($row_category);
+                    echo "<option value='{$id}'>{$name}</option>";
+                }
+            echo "</select>";
+            ?>
+
+
+            </td>
+        </tr>
+        <td>
+            <tr>Population</tr>
+            <tr><input type='number' name='population'></tr>
+        </td>
+        <tr>
+            <td>Status</td>
+            <td>
+                <select class='form-control' name='status'>
+                    <option>Select Status...</option>
+                    <option>Threatened</option>
+                    <option>Least Concerned</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
           <td>
             Photo
           </td>

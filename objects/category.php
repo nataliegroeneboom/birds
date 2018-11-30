@@ -8,6 +8,7 @@ class Category{
     // object properties
     public $id;
     public $name;
+    public $timestamp;
 
     public function __construct($db){
         $this->conn = $db;
@@ -43,5 +44,42 @@ function readName(){
     $this->name = $row['name'];
 }
 
+    function create(){
+
+            $query = "INSERT INTO 
+                          " . $this->table_name . "
+                          SET 
+                          name=:name, created=:created";
+
+            $stmt = $this->conn->prepare($query);
+            $this->name = strtolower($this->name);
+            $this->name = htmlspecialchars(strip_tags($this->name));
+            $this->timestamp = date('Y-m-d H:i:s');
+
+            $stmt->bindParam(":name", $this->name);
+            $stmt->bindParam('created', $this->timestamp);
+
+            if($stmt->execute()){
+                return true;
+            }else{
+                return false;
+            }
+
+
+    }
+
+
+
+
+
+
 }
-?>
+
+
+
+
+
+
+
+
+

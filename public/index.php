@@ -11,8 +11,6 @@ include_once '../objects/category.php';
 
 // instantiate database and product object
 
-
-
 $database = new Database();
 $db = $database->getConnection();
 
@@ -37,7 +35,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 
 if($action=='login_success'){
-  echo "<div class='alert alert-info'><strong>Hi " . $_SESSION['firstname'] . ", wecome back!";
+  echo "<div class='alert alert-info'><strong>Hi " . $_SESSION['firstname'] . ", welcome back!";
   echo"</strong></div>";
 }
 else if($action=='already_logged_in'){

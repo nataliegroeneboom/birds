@@ -26,6 +26,7 @@ echo "<div class='alert alert-info'>
 
 echo "<div class='admin-content'>
 <button><a href='content.php'>Add a Bird</a></button>
+<button><a href='taxonomy.php'>Add Taxonomies</a></button>
 
 </div>";
 

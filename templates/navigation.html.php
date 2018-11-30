@@ -55,12 +55,12 @@
         else{
 ?>
         <ul class="nav navbar-nav navbar-right">
-          <li <?=$page_title=="Login"? "class='active'": ""?>>
+          <li <?=$page_title=="Login"? "class='active'": "";?>>
             <a href="<?= $home_url; ?>login.php">
               <span class="glyphicon glyphicon-log-in"></span> Login
             </a>
           </li>
-          <li <?=$page_title=="Register"?"class='active'": ""?>>
+          <li <?=$page_title=="Register"?"class='active'": "";?>>
             <a href="<?= $home_url; ?>register.php">
               <span class="glyphicon glyphicon-check"></span>Register
             </a>
