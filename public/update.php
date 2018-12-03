@@ -5,6 +5,7 @@ $id= isset($_GET['id'])? $_GET['id'] : die('ERROR: Record ID not found');
 include_once '../config/database.php';
 include_once '../objects/bird.php';
 include_once '../objects/category.php';
+include_once '../config/core.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -17,7 +18,7 @@ $bird->id = $id;
 echo $id ;
 $bird->readOne();
 echo "<br />";
-echo $bird->name;
+echo $bird->birdname;
 
 $page_title = "Update Bird";
 include_once "../templates/header.html.php";
@@ -34,7 +35,7 @@ echo "</div>";
 
   if($_POST){
 
-      $bird->name = $_POST['name'];
+      $bird->birdname = $_POST['name'];
       $bird->description = $_POST['description'];
       $bird->category_id = $_POST['category_id'];
 
@@ -49,7 +50,7 @@ echo "</div>";
 
     }
 
-      $stmt->bindParam(':name', $name);
+      $stmt->bindParam(':name', $birdname);
       $stmt->bindParam(':description', $description);
       $stmt->bindParam(':id', $id);
 

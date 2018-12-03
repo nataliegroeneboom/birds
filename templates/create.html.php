@@ -43,7 +43,7 @@
             <td>
             <?php
 
-            $stmt_location = $location->read();
+           $stmt_location = $location->read();
 
             echo "<select class='form-control' name='location_id'>";
                 echo "<option> Select Location... </option>";

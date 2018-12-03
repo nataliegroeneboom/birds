@@ -7,7 +7,7 @@ class Bird{
 
     // object properties
     public $id;
-    public $name;
+    public $birdname;
     public $description;
     public $image;
     public $category_id;
@@ -26,20 +26,26 @@ class Bird{
 
         //write query
         $query = "INSERT INTO
-                    " . $this->table_name . "
-                SET
-                    name=:name, description=:description, image=:image, category_id=:category_id, created=:created,
-                    population=:population, location-:location, status=:status";
+                " . $this->table_name . "
+            SET
+                birdname = :birdname,
+                description = :description,
+                image = :image,
+                created = :created,
+                category_id = :category_id,
+                population = :population,
+                location_id = :location_id,
+                status = :status";
 
         $stmt = $this->conn->prepare($query);
 
         // posted values
-        $this->name=htmlspecialchars(strip_tags($this->name));
+        $this->birdname=htmlspecialchars(strip_tags($this->birdname));
         $this->description=htmlspecialchars(strip_tags($this->description));
         $this->image=htmlspecialchars(strip_tags($this->image));
         $this->category_id=htmlspecialchars(strip_tags($this->category_id));
         $this->population=htmlspecialchars(strip_tags($this->population));
-        $this->location=htmlspecialchars(strip_tags($this->location));
+        $this->location_id =htmlspecialchars(strip_tags($this->location_id));
         $this->status=htmlspecialchars(strip_tags($this->status));
 
 
@@ -48,13 +54,14 @@ class Bird{
         $this->timestamp = date('Y-m-d H:i:s');
 
         // bind values
-        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":birdname", $this->birdname);
         $stmt->bindParam(":description", $this->description);
         $stmt->bindParam(":image", $this->image);
         $stmt->bindParam(":category_id", $this->category_id);
         $stmt->bindParam(":created", $this->timestamp);
+     //   $stmt->bindParam(":modified", $this->timestamp);
         $stmt->bindParam(":population", $this->population);
-        $stmt->bindParam(":location", $this->location);
+        $stmt->bindParam(":location_id", $this->location_id);
         $stmt->bindParam(":status", $this->status);
 
         if($stmt->execute()){
@@ -67,11 +74,11 @@ class Bird{
  function readAll($from_record_num, $records_per_page){
 
     $query = "SELECT
-                id, name, description, category_id
+                id, birdname, description, category_id
             FROM
                 " . $this->table_name . "
             ORDER BY
-                name ASC
+                birdname ASC
             LIMIT
                 {$from_record_num}, {$records_per_page}";
 
@@ -84,7 +91,7 @@ class Bird{
 //used for gallery
 
 public function readRandom(){
-  $query = "SELECT id, name, image FROM "
+  $query = "SELECT id, birdname, image FROM "
   . $this->table_name . "
   ORDER BY RAND() LIMIT 10";
 
@@ -107,28 +114,30 @@ public function countAll(){
 }
 
 function readOne(){
-  $query= "SELECT name, description, category_id, image, population, location, status
-  FROM " . $this->table_name . "
-  WHERE id = ?
+  $query= "SELECT l.name, b.birdname, b.description, b.category_id, b.image, b.population, b.location_id, b.status
+  FROM " . $this->table_name . " b
+  LEFT JOIN location l
+  ON b.location_id = l.id
+  WHERE b.id = ?
   LIMIT 0,1";
 
   $stmt = $this->conn->prepare($query);
   $stmt->bindParam(1, $this->id);
   $stmt->execute();
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
-  $this->name = $row['name'];
+  $this->birdname = $row['birdname'];
   $this->description = $row['description'];
   $this->category_id = $row['category_id'];
   $this->image = $row['image'];
   $this->population = $row['population'];
-  $this->location = $row['location'];
+  $this->location = $row['name'];
   $this->status = $row['status'];
 }
 
 function update(){
   $query =" UPDATE
         ". $this->table_name .  "
-            SET name = :name,
+            SET birdname = :birdname,
             description = :description,
             category_id = :category_id
         WHERE id = :id";
@@ -136,12 +145,12 @@ function update(){
   $stmt = $this->conn->prepare($query);
 
   //posted values
-  $this->name = htmlspecialchars(strip_tags($this->name));
+  $this->birdname = htmlspecialchars(strip_tags($this->birdname));
   $this->description= htmlspecialchars(strip_tags($this->description));
   $this->category_id = htmlspecialchars(strip_tags($this->category_id));
   $this->id = htmlspecialchars(strip_tags($this->id));
   //bind parameters
-  $stmt->bindParam(':name', $this->name);
+  $stmt->bindParam(':birdname', $this->birdname);
   $stmt->bindParam(':description', $this->description);
   $stmt->bindParam(':category_id', $this->category_id);
   $stmt->bindParam(':id', $this->id);
@@ -173,16 +182,16 @@ public function search($search_term, $from_record_num, $records_per_page){
 
     // select query
     $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.category_id, p.image, p.created
+                c.name as category_name, p.id, p.birdname, p.description, p.category_id, p.image, p.created
             FROM
                 " . $this->table_name . " p
                 LEFT JOIN
                     categories c
                         ON p.category_id = c.id
             WHERE
-                p.name LIKE ? OR p.description LIKE ?
+                p.birdname LIKE ? OR p.description LIKE ?
             ORDER BY
-                p.name ASC
+                p.birdname ASC
             LIMIT
                 ?, ?";
 
@@ -214,7 +223,7 @@ public function countAll_BySearch($search_term){
                     categories c
                         ON p.category_id = c.id
             WHERE
-                p.name LIKE ?";
+                p.birdname LIKE ?";
 
     // prepare query statement
     $stmt = $this->conn->prepare( $query );
@@ -294,7 +303,7 @@ function uploadPhoto(){
 }
 
 function autoCompleteSearch($search_term){
-        $query = "SELECT * FROM " . $this->table_name . " WHERE name LIKE ?";
+        $query = "SELECT * FROM " . $this->table_name . " WHERE birdname LIKE ?";
         $stmt = $this->conn->prepare($query);
     $search = "%{$search_term}%";
     $stmt->bindParam(1, $search);

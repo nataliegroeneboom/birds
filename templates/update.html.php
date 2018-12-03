@@ -1,17 +1,17 @@
 
 
 
-        <h3>Checking<?php $bird->name ?></h3>
-        <?php if($bird->name){
+        <h3>Checking<?php $bird->birdname ?></h3>
+        <?php if($bird->birdname){
           echo "<p>access to bird description</p>";
         }else{
-          echo "<p>" . $bird->name . "</p>";
+          echo "<p>" . $bird->birdname . "</p>";
         }?>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}");?>" method="post">
         <table class='table table-hover table-responsive table-bordered'>
             <tr>
                 <td>Name</td>
-                <td><input type='text' name='name' value="<?php echo $bird->name ?>" class='form-control' /></td>
+                <td><input type='text' name='name' value="<?php echo $bird->birdname ?>" class='form-control' /></td>
             </tr>
             <tr>
                 <td>Description</td>
