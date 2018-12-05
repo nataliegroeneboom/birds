@@ -8,6 +8,8 @@ include_once '../config/core.php';
 include_once '../config/database.php';
 include_once '../objects/bird.php';
 include_once '../objects/category.php';
+include_once '../objects/DatabaseTable.php';
+include_once '../objects/controllers/controller.php';
 
 // instantiate database and product object
 
@@ -16,6 +18,9 @@ $db = $database->getConnection();
 
 $bird = new Bird($db);
 $category = new Category($db);
+$birdTable = new DatabaseTable($db, 'birds', 'id');
+$categoryTable = new DatabaseTable($db, 'categories', 'id');
+$controller = new Controller($birdTable, $categoryTable);
 
 $page_title = "Index";
 $require_login = true;
@@ -30,25 +35,26 @@ $page_url = "index.php?";
 
 // count total rows - used for pagination
 $total_rows=$bird->countAll();
-$action = isset($_GET['action']) ? $_GET['action'] : '';
+$$action = $_GET['action'] ? $_GET['action'] : 'home';
+$page = $controller->$action();
 
 
 
-if($action=='login_success'){
-  echo "<div class='alert alert-info'><strong>Hi " . $_SESSION['firstname'] . ", welcome back!";
-  echo"</strong></div>";
-}
-else if($action=='already_logged_in'){
-  echo "<div>
-  <strong>You are already logged in</strong>
-  </div>";
-}
-echo "<div class='alert alert-info'>
-content when logged in will be here
-</div>";
+//if($action=='login_success'){
+//  echo "<div class='alert alert-info'><strong>Hi " . $_SESSION['firstname'] . ", welcome back!";
+//  echo"</strong></div>";
+//}
+//else if($action=='already_logged_in'){
+//  echo "<div>
+//  <strong>You are already logged in</strong>
+//  </div>";
+//}
+//echo "<div class='alert alert-info'>
+//content when logged in will be here
+//</div>";
 
 // read_template.php controls how the product list will be rendered
-include_once "read_template.php";
+include_once "../templates/read_template.html.php";
 
 // layout_footer.php holds our javascript and closing html tags
 include_once "../templates/footer.html.php";

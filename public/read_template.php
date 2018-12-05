@@ -20,43 +20,39 @@ echo "</div>";
 // display the products if there are any
 if($total_rows>0){
 
-    echo "<table class='table table-hover table-responsive table-bordered'>";
-        echo "<tr>";
-            echo "<th>Product</th>";
-            echo "<th>Description</th>";
-            echo "<th>Category</th>";
-            echo "<th>Actions</th>";
-        echo "</tr>";
+  <table class='table table-hover table-responsive table-bordered'>
+       <tr>
+            <th>Product</th>
+          <th>Description</th>
+           <th>Category</th>
+          <th>Actions</th>
+      </tr>
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+    <?php    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
-            extract($row);
+            extract($row); ?>
 
-            echo "<tr>";
-                echo "<td>{$birdname}</td>";
-                echo "<td>{$description}</td>";
-                echo "<td>";
+            e<tr>
+                <td><?=$birdname?></td>
+                <td><?=$description?></td>
+                <td><?php
                     $category->id = $category_id;
                     $category->readName();
-                    echo $category->name;
-                echo "</td>";
+                    echo $category->name; ?>
+                </td>
 
-                echo "<td>";
+               <td>
 
-                    // read product button
-                    echo "<a href='individual.php?id={$id}' class='btn btn-primary left-margin'>";
-                        echo "<span class='glyphicon glyphicon-list'></span> Read";
-                    echo "</a>";
 
-                    // edit product button
-                    echo "<a href='update.php?id={$id}' class='btn btn-info left-margin'>";
-                        echo "<span class='glyphicon glyphicon-edit'></span> Edit";
-                    echo "</a>";
+                    <a href='<?php echo "individual.php?id='{$id}'"?>' class='btn btn-primary left-margin'>
+                       <span class='glyphicon glyphicon-list'></span> Read </a>
 
-                    // delete product button
-                    // echo "<a delete-id='{$id}' class='btn btn-danger delete-object'>";
-                    //     echo "<span class='glyphicon glyphicon-remove'></span> Delete";
-                    // echo "</a>";
+
+                  <a href='<?php echo "update.php?id='{$id}'"?>' class='btn btn-info left-margin'>
+                     <span class='glyphicon glyphicon-edit'></span>
+                     </a>
+
+
             echo "<form action='delete.php' method='post'>";
   echo " <input type='hidden' name='id' value='{$id}'>";
   echo "<input type='submit' value='Delete'>";

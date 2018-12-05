@@ -17,7 +17,7 @@ class Bird{
     public $location_id;
     public $status;
 
-    public function __construct($db){
+    public function __construct(PDO $db){
         $this->conn = $db;
     }
 
