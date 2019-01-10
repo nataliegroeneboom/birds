@@ -19,7 +19,7 @@ echo "</div>";
 
 // display the products if there are any
 if($total_rows>0){
-
+?>
   <table class='table table-hover table-responsive table-bordered'>
        <tr>
             <th>Product</th>
@@ -32,7 +32,7 @@ if($total_rows>0){
 
             extract($row); ?>
 
-            e<tr>
+            <tr>
                 <td><?=$birdname?></td>
                 <td><?=$description?></td>
                 <td><?php
@@ -53,21 +53,24 @@ if($total_rows>0){
                      </a>
 
 
-            echo "<form action='delete.php' method='post'>";
-  echo " <input type='hidden' name='id' value='{$id}'>";
-  echo "<input type='submit' value='Delete'>";
-  echo "</form>";
+          <form action='delete.php' method='post'>
+ <input type='hidden' name='id' value='{$id}'>
+<input type='submit' value='Delete'>"
+  </form>
 
-                echo "</td>";
+                 </td>;
 
-            echo "</tr>";
+       </tr>;
+      <?php
 
         }
+      ?>
 
-    echo "</table>";
+   </table>;
 
     // paging buttons
     include_once 'paging.php';
+<?php
 }
 
 // tell the user there are no products

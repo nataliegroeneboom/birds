@@ -9,7 +9,10 @@ include_once '../config/database.php';
 include_once '../objects/bird.php';
 include_once '../objects/category.php';
 include_once '../objects/DatabaseTable.php';
-include_once '../objects/controllers/controller.php';
+include_once '../objects/controllers/BirdController.php';
+include_once '../objects/UploadFile.php';
+include_once '../objects/controllers/BirdController.php';
+include_once '../objects/location.php';
 
 // instantiate database and product object
 
@@ -18,27 +21,37 @@ $db = $database->getConnection();
 
 $bird = new Bird($db);
 $category = new Category($db);
+$location = new Location($db);
+$upload = new UploadFile();
+
 $birdTable = new DatabaseTable($db, 'birds', 'id');
 $categoryTable = new DatabaseTable($db, 'categories', 'id');
-$controller = new Controller($birdTable, $categoryTable);
 
-$page_title = "Index";
+$controller = new BirdController($birdTable, $categoryTable);
+
+$action = isset($_GET['action']) ? $_GET['action'] : 'list';
+
+$page_redirect = $controller->$action();
+if(isset($page_redirect['variables'])){
+    extract($page_redirect['variables']);
+}
+
+$page_title = $page_redirect['title'];
 $require_login = true;
 include_once "login_checker.php";
 include_once "../templates/header.html.php";
 
 // query products
-$stmt = $bird->readAll($from_record_num, $records_per_page);
+//$stmt = $bird->readAll($from_record_num, $records_per_page);
 
 // specify the page where paging is used
 $page_url = "index.php?";
 
 // count total rows - used for pagination
 $total_rows=$bird->countAll();
-$$action = $_GET['action'] ? $_GET['action'] : 'home';
-$page = $controller->$action();
 
 
+echo "{$page_redirect['message']}";
 
 //if($action=='login_success'){
 //  echo "<div class='alert alert-info'><strong>Hi " . $_SESSION['firstname'] . ", welcome back!";
@@ -54,7 +67,7 @@ $page = $controller->$action();
 //</div>";
 
 // read_template.php controls how the product list will be rendered
-include_once "../templates/read_template.html.php";
+include_once "../templates/{$page_redirect['template']}";
 
 // layout_footer.php holds our javascript and closing html tags
 include_once "../templates/footer.html.php";

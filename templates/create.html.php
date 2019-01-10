@@ -10,12 +10,12 @@
 
         <tr>
             <td>Name</td>
-            <td><input type='text' name='name' class='form-control' /></td>
+            <td><input type='text' name="bird[name]" class='form-control' /></td>
         </tr>
 
         <tr>
             <td>Description</td>
-            <td><textarea name='description' class='form-control'></textarea></td>
+            <td><textarea name="bird[description]" class='form-control'></textarea></td>
         </tr>
 
         <tr>
@@ -26,7 +26,7 @@
   $stmt = $category->read();
 
   // put them in a select drop-down
-  echo "<select class='form-control' name='category_id'>";
+  echo "<select class='form-control' name='bird[category_id]'>";
       echo "<option>Select category...</option>";
 
       while ($row_category = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -45,7 +45,7 @@
 
            $stmt_location = $location->read();
 
-            echo "<select class='form-control' name='location_id'>";
+            echo "<select class='form-control' name='bird[location_id]'>";
                 echo "<option> Select Location... </option>";
 
                 while($row_category = $stmt_location->fetch(PDO::FETCH_ASSOC)) {
@@ -60,12 +60,12 @@
         </tr>
         <td>
             <tr>Population</tr>
-            <tr><input type='number' name='population'></tr>
+            <tr><input type='number' name="bird[population]"></tr>
         </td>
         <tr>
             <td>Status</td>
             <td>
-                <select class='form-control' name='status'>
+                <select class='form-control' name="bird[status]">
                     <option>Select Status...</option>
                     <option>Threatened</option>
                     <option>Least Concerned</option>
@@ -77,7 +77,7 @@
             Photo
           </td>
           <td>
-            <input type="file" name="image"  />
+            <input type="file" name="image"/>
           </td>
         </tr>
 

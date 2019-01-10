@@ -18,18 +18,20 @@ $location = new Location($db);
 
 // set page headers
 $page_title = "Add a Bird";
-// if the form was submitted - PHP OOP CRUD Tutorial
-if($_POST){
+// if the form was submitted
+
+if(isset($_POST['bird'])){
+    $bird_variables = $_POST['bird'];
 
     // set product property values
-    $bird->birdname = $_POST['name'];
-    $bird->description = $_POST['description'];
-    $bird->category_id = $_POST['category_id'];
-    $bird->location_id = $_POST['location_id'];
-    $bird->status = $_POST['status'];
-    $image=!empty($_FILES['image']["name"])?sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES['image']['name']) : "";
-    $bird->population = $_POST['population'];
-    $bird->image = $image;
+    $bird->birdname = $bird_variables['name'];
+    $bird->description = $bird_variables['description'];
+    $bird->category_id = $bird_variables['category_id'];
+    $bird->location_id = $bird_variables['location_id'];
+    $bird->status = $bird_variables['status'];
+    $bird_variables['image']=!empty($_FILES['image']["name"])?sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES['image']['name']) : "";
+    $bird->population = $bird_variables['population'];
+    $bird->image = $bird_variables['image'];
 
 
     // create the product

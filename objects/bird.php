@@ -59,7 +59,6 @@ class Bird{
         $stmt->bindParam(":image", $this->image);
         $stmt->bindParam(":category_id", $this->category_id);
         $stmt->bindParam(":created", $this->timestamp);
-     //   $stmt->bindParam(":modified", $this->timestamp);
         $stmt->bindParam(":population", $this->population);
         $stmt->bindParam(":location_id", $this->location_id);
         $stmt->bindParam(":status", $this->status);
