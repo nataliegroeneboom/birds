@@ -8,7 +8,7 @@ In this branch I am trying to rewrite my code so the there are reusable methods.
 
 In my bird website I have a class called Bird that manages the update,
 insert, deletion of birds on the website.  I want to move my some 
-of my functions to a generic DatabaseTable class managing all tables.
+of my functions to a generic DatabaseTable class managing all tables queries.
 
 ## DatabaseTable Class
 I created a Class that deals with all the sql queries to the database, reducing the 
