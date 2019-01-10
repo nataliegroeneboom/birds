@@ -126,6 +126,19 @@ I assign the $birds variable to an empty array and loop through the $result arra
     }
 ```
 
-#### Back to the index.php
+#### The index.php
 The variable $page_redirect holds the data.  If there are variables, as they are embedded
-in an array they are extracted.  
+in an array they are extracted.  The title is stored as a global variable $page_title.
+The template returned from the controller is outputted.  This reusable code will help reduce
+error and easiler to read.
+
+
+```php
+$page_title = $page_redirect['title'];
+... 
+echo "{$page_redirect['message']}";
+...
+include_once "../templates/{$page_redirect['template']}";
+
+```
+
