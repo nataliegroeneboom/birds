@@ -4,10 +4,7 @@ I am learning the basics of CRUD object orientated PHP by creating a table of bi
 
 ## Rewriting my code
 
-In this branch I am building upon the OOP I did prior by adding functionality to login/logout and register.
-
-
-In this branch I am trying to simplify my code to reusable code
+In this branch I am trying to rewrite my code so the there are reusable methods.
 
 In my bird website I have a class called Bird that manages the update,
 insert, deletion of birds on the website.  I want to move my some 
