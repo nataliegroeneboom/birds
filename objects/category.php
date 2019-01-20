@@ -60,6 +60,7 @@ function readName(){
             $stmt->bindParam('created', $this->timestamp);
 
             if($stmt->execute()){
+
                 return true;
             }else{
                 return false;

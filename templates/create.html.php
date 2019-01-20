@@ -1,16 +1,19 @@
 
 
+<?php
+echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>";
 
+?>
 
 
 <!-- HTML form for creating a product -->
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data">
 
     <table class='table table-hover table-responsive table-bordered'>
 
         <tr>
             <td>Name</td>
-            <td><input type='text' name="bird[name]" class='form-control' /></td>
+            <td><input type='text' name="bird[birdname]" class='form-control' /></td>
         </tr>
 
         <tr>
@@ -23,16 +26,19 @@
             <td>
               <?php
   // read the product categories from the database
-  $stmt = $category->read();
+ // $stmt = $category->read();
 
   // put them in a select drop-down
   echo "<select class='form-control' name='bird[category_id]'>";
       echo "<option>Select category...</option>";
 
-      while ($row_category = $stmt->fetch(PDO::FETCH_ASSOC)){
-          extract($row_category);
-          echo "<option value='{$id}'>{$name}</option>";
+      foreach($categories as $category){
+          echo "<option value='{$category['id']}'>{$category['name']}</option>";
       }
+//      while ($row_category = $stmt->fetch(PDO::FETCH_ASSOC)){
+//          extract($row_category);
+//          echo "<option value='{$id}'>{$name}</option>";
+//      }
 
   echo "</select>";
   ?>
@@ -43,15 +49,19 @@
             <td>
             <?php
 
-           $stmt_location = $location->read();
+          // $stmt_location = $location->read();
 
             echo "<select class='form-control' name='bird[location_id]'>";
                 echo "<option> Select Location... </option>";
 
-                while($row_category = $stmt_location->fetch(PDO::FETCH_ASSOC)) {
-                    extract($row_category);
-                    echo "<option value='{$id}'>{$name}</option>";
+                foreach($locations as $location){
+                    echo "<option value='{$location['id']}'>{$location['name']}</option>";
                 }
+
+//                while($row_category = $stmt_location->fetch(PDO::FETCH_ASSOC)) {
+//                    extract($row_category);
+//                    echo "<option value='{$id}'>{$name}</option>";
+//                }
             echo "</select>";
             ?>
 

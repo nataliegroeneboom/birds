@@ -13,6 +13,8 @@ class DatabaseTable {
     }
 
     private function query($sql, $parameters = []){
+        $sql;
+        $parameters;
         $query = $this->conn->prepare($sql);
         $query->execute($parameters);
         return $query;
@@ -34,29 +36,40 @@ class DatabaseTable {
         return $query->fetch();
     }
 
+    public function findById($value){
+        $query = 'SELECT * FROM `' . $this->table . '` WHERE `' . $this->primaryKey .  '` = :value';
+        $parameters = [
+            ':value' => $value
+        ];
+        $query = $this->query($query, $parameters);
+        return $query->fetch();
+
+    }
+
     public function readAll(){
         $result = $this->query('SELECT * FROM ' . $this->table);
         return $result->fetchAll();
     }
+
+
     private function insert($fields) {
-        $query ='INSERT INTO `' . $this->table . '` (';
-        foreach($fields as $key => $value){
-            $query .='`' . $key . '`,';
+        $query = 'INSERT INTO `' . $this->table . '` (';
+        foreach ($fields as $key => $value) {
+            $query .= '`' . $key . '`,';
         }
         $query = rtrim($query, ',');
         $query .= ') VALUES (';
-        foreach ($fields as $key => $value){
-            $query .=':' . $key . ',';
+        foreach ($fields as $key => $value) {
+            $query .= ':' . $key . ',';
         }
         $query = rtrim($query, ',');
-        $query .=')';
+        $query .= ')';
         $fields = $this->processDates($fields);
-        if($this->query($query, $fields)){
-            return true;
-        }else{
-            return false;
-        };
+
+        $this->upload($fields['image']);
+        $this->query($query, $fields);
     }
+
 
     private function processDates($fields) {
 foreach($fields as $key => $value){
@@ -69,19 +82,68 @@ foreach($fields as $key => $value){
 
     public function save($records){
         try{
-            if($records[$this->primaryKey] =='') {
-                $records[$this->primaryKey] = null;
-
                 if($this->insert($records)){
-                return true;
+
                 }else{
 
                 return false;
             }
-            }
+
         }catch(PDOException $e){
 
         }
+
+    }
+
+    private function upload($file){
+        $upload = $_FILES['image'];
+        if(isset($upload)){
+        $path = 'files/';
+        $size = 420000;
+        $target_file = $path . $file;
+        $allowedFiles = array('jpg', 'jpeg', 'png');
+        $result = [];
+
+            if(!empty($upload) && !empty($path) && !empty($size) && !empty($allowedFiles)){
+                //check if upload and allowed are an array
+                if(is_array($upload) && is_array($allowedFiles)){
+                    $file_type = pathinfo($target_file, PATHINFO_EXTENSION);
+                    if(!in_array($file_type, $allowedFiles)){
+                        $result['type'] = 'error';
+                        //  $this->_result['message'] = "File should be less then ".$this->_size . "bytes";
+                        $result['message'] = "Only JPG, JPEG, PNG, GIF files are allowed.";
+                        $result['path'] = false;
+
+
+                    }
+                    if($upload['size'] > $size){
+                        $result['type'] = 'error';
+                        $result['message'] = "File should be less then ". $size . " bytes";
+                        $result['path'] = false;
+                    }
+                    if(file_exists($target_file)){
+                        $result['type'] = 'error';
+                        $result['message'] = "Image already exists";
+                        $result['path'] = false;
+                    }
+                    if(!isset($result['error'])){
+                        if(move_uploaded_file($upload['tmp_name'], $target_file)){
+                            $result['type'] = 'success';
+                            $result['message'] = "Image uploaded";
+                            $result['path'] = true;
+                        }else{
+                            $result['type'] = 'error';
+                            $result['message'] = "Image unable to be upload";
+                            $result['path'] = false;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        return $result;
+
 
     }
 

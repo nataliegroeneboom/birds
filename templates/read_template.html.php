@@ -1,3 +1,6 @@
+
+<?php //$total_rows=$bird->countAll(); ?>
+
 <form role='search' action='search.php'>
   <div class='input-group col-md-3 pull-left margin-right-1em'>
 <!--    --><?php //$search_value=isset($search_term) ?><!-- ??--><?//="value='{$search_term}'" ?><!--;-->
@@ -11,7 +14,7 @@
 
   <div class='right-button-margin'>
    <a href='index.php?action=edit' class='btn btn-primary pull-right'>
-    <span class='glyphicon glyphicon-plus'></span> Create Product </a>
+    <span class='glyphicon glyphicon-plus'></span> Create Bird </a>
   </div>
 
 
@@ -35,7 +38,7 @@
         <td>
 
 
-            <a href="individual.php?id=<?=$bird['id']?>" class='btn btn-primary left-margin'>
+            <a href="index.php?action=read&id=<?=$bird['id']?>" class='btn btn-primary left-margin'>
                 <span class='glyphicon glyphicon-list'></span> Read
             </a>
 

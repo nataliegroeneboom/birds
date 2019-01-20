@@ -6,35 +6,40 @@ include_once '../config/core.php';
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/bird.php';
-include_once '../objects/category.php';
+//include_once '../objects/bird.php';
+//include_once '../objects/category.php';
 include_once '../objects/DatabaseTable.php';
 include_once '../objects/controllers/BirdController.php';
 include_once '../objects/UploadFile.php';
-include_once '../objects/controllers/BirdController.php';
-include_once '../objects/location.php';
+//include_once '../objects/location.php';
 
 // instantiate database and product object
 
 $database = new Database();
 $db = $database->getConnection();
 
-$bird = new Bird($db);
-$category = new Category($db);
-$location = new Location($db);
-$upload = new UploadFile();
+//$bird = new Bird($db);
+//$category = new Category($db);
+//$location = new Location($db);
+
 
 $birdTable = new DatabaseTable($db, 'birds', 'id');
 $categoryTable = new DatabaseTable($db, 'categories', 'id');
+$locationTable = new DatabaseTable($db, 'location', 'id');
 
-$controller = new BirdController($birdTable, $categoryTable);
+$controller = new BirdController($birdTable, $categoryTable, $locationTable);
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'list';
+//$allowedFile = array('jpg', 'png', 'jpeg');
+//$fileUpload = new UploadFile($files = [], 'files/', 4024000, $allowedFile);
 
 $page_redirect = $controller->$action();
 if(isset($page_redirect['variables'])){
     extract($page_redirect['variables']);
 }
+
+
+
 
 $page_title = $page_redirect['title'];
 $require_login = true;
@@ -48,10 +53,12 @@ include_once "../templates/header.html.php";
 $page_url = "index.php?";
 
 // count total rows - used for pagination
-$total_rows=$bird->countAll();
+//$total_rows=$bird->countAll();
 
+if(isset($page_redirect['message'])){
+    echo "{$page_redirect['message']}";
+}
 
-echo "{$page_redirect['message']}";
 
 //if($action=='login_success'){
 //  echo "<div class='alert alert-info'><strong>Hi " . $_SESSION['firstname'] . ", welcome back!";
