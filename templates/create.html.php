@@ -11,6 +11,7 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>
 
     <table class='table table-hover table-responsive table-bordered'>
     <input type="hidden" name="bird[id]" value="<?=$bird['id'] ?? '' ?>">
+        <input type="hidden" name="bird[image]" value="<?=$bird['image'] ?? '' ?>">
         <tr>
             <td>Name</td>
             <td><input type='text' name="bird[birdname]" class='form-control' value="<?=$bird['birdname']?? '' ?>"/></td>
@@ -71,14 +72,14 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>
             <td>
                 <select class='form-control' name="bird[status]">
                     <option>Select Status...</option>
-                    <option
+                    <option value="<?=$bird['status']?>"
                         <?php
-                        if($bird['status'] == "Threatened"){
-                            echo " selected";
+                        if($bird['status'] == 'Threatened'){
+                            echo "selected";
                         }
                         ?>
                      >Threatened</option>
-                    <option
+                    <option value="<?=$bird['status']?>" selected
                         <?php
                         if($bird['status'] == "Least Concerned"){
                             echo " selected";
@@ -95,6 +96,7 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>
           <td>
             <input id="imagePreview" type="file" name="image" id="files" onchange="previewImage();"/>
              <?php if(isset($bird['image'])){
+
                 echo "<img id='previewbird' name='image' class='img-responsive' src='files/{$bird["image"]}' />";
                 echo "<label for='files'>Change Image</label>";
              }else{

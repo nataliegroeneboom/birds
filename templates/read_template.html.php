@@ -49,8 +49,9 @@
 
 
 
-            <form action='delete.php' method='post'>
+            <form action='index.php?action=delete' method='post'>
                 <input type='hidden' name='id' value='<?=$bird['id']?>'>
+                <input type='hidden' name='image' value='<?=$bird['image']?>'>
                 <input type='submit' value='Delete'>
             </form>
 

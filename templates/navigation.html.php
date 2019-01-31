@@ -21,16 +21,16 @@
 ?>
     <ul class="nav navbar-nav navbar-left">
       <li <?php echo $page_title==="About Us"?"class='active'":"";?>>
-        <a href="<?=$home_url; ?>about.php">About</a>
+        <a >About</a>
       </li>
       <li <?php echo $page_title==="Glossary"?"class='active'":"";?>>
-        <a href="<?=$home_url; ?>glossary.php">Glossary</a>
+        <a >Glossary</a>
       </li>
       <li <?php echo $page_title==="Gallery"?"class='active'":"";?>>
-        <a href="<?=$home_url; ?>gallery.php">Gallery</a>
+        <a>Gallery</a>
       </li>
         <li <?php echo $page_title==="Your Page"?"class='active'":"";?>>
-            <a href="<?=$home_url; ?>your_page.php">Your Page</a>
+            <a>Your Page</a>
         </li>
     </ul>
 

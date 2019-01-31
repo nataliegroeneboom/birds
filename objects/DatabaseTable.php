@@ -50,6 +50,14 @@ class DatabaseTable {
         return $query->fetch();
     }
 
+    public function delete($id){
+        $query = 'DELETE FROM `' . $this->table . '` WHERE `' . $this->primaryKey . '` = :id';
+        $parameters = [
+            ':id' => $id
+        ];
+        $this->query($query, $parameters);
+    }
+
     public function findById($value){
         $query = 'SELECT * FROM `' . $this->table . '` WHERE `' . $this->primaryKey .  '` = :value';
         $parameters = [
@@ -101,11 +109,7 @@ foreach($fields as $key => $value){
                 $records[$this->primaryKey] = null;
             }
             if($records[$this->primaryKey]){
-                if(isset($_FILES['image']) and $records['image']!== ''){
-                if(!unlink('files/'.$records['image'])){
-                    return;
-                }
-                }
+
                 $this->update($records);
             }else{
                 if($this->insert($records)){

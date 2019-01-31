@@ -15,6 +15,17 @@ class BirdController{
 
     }
 
+    public function delete(){
+        $this->birdTable->delete($_POST['id']);
+        if($_POST['image']!==''){
+            $image = $_POST['image'];
+            if(!unlink('files/'.$image)){
+                return;
+            }
+        }
+        header('location: index.php?action=list');
+    }
+
     public function list(){
     $result = $this->birdTable->readAll();
     $birds = [];
@@ -24,7 +35,8 @@ class BirdController{
                     'id' => htmlspecialchars($bird['id'], ENT_QUOTES, 'UTF-8'),
                     'name' => htmlspecialchars($bird['birdname'], ENT_QUOTES, 'UTF-8'),
                     'description' => htmlspecialchars($bird['description'], ENT_QUOTES, 'UTF-8'),
-                    'category' => htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8')
+                    'category' => htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8'),
+                   'image' => htmlspecialchars($bird['image'], ENT_QUOTES, 'UTF-8'),
                     ];
         }
         $title = 'Bird List';
@@ -80,6 +92,11 @@ class BirdController{
         $result = [];
         if(isset($_POST['bird'])){
             $bird_variables = $_POST['bird'];
+            if(isset($_FILES['image']) and $bird_variables['image'] !== ''){
+                if(!unlink('files/'.$bird_variables['image'])){
+                    return;
+                }
+            }
             $bird_variables['image']=!empty($_FILES['image']["name"])?sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES['image']['name']) : "";
             $bird_variables['created'] = date('Y-m-d H:i:s');
 
