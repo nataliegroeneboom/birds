@@ -27,6 +27,20 @@ class DatabaseTable {
         }
     }
 
+    private function update($fields) {
+        $query = ' UPDATE `' . $this->table .'` SET ';
+        foreach ($fields as $key => $value) {
+            $query .= '`' . $key . '` = :' . $key . ',';
+        }
+        $query = rtrim($query, ',');
+        $query .= ' WHERE `' . $this->primaryKey . '` = :primaryKey';
+        //Set the :primaryKey variable
+        $fields['primaryKey'] = $fields['id'];
+        $fields = $this->processDates($fields);
+        $this->upload($fields['image']);
+        $this->query($query, $fields);
+    }
+
     public function readName($value){
         $query= 'SELECT `name` FROM `' . $this->table . '` WHERE `' . $this->primaryKey .  '` = :value';
         $parameters = [
@@ -82,15 +96,29 @@ foreach($fields as $key => $value){
 
     public function save($records){
         try{
+
+            if ($records[$this->primaryKey] == '') {
+                $records[$this->primaryKey] = null;
+            }
+            if($records[$this->primaryKey]){
+                if(isset($_FILES['image']) and $records['image']!== ''){
+                if(!unlink('files/'.$records['image'])){
+                    return;
+                }
+                }
+                $this->update($records);
+            }else{
                 if($this->insert($records)){
 
                 }else{
 
-                return false;
+                    return false;
+                }
             }
 
-        }catch(PDOException $e){
 
+        }catch(PDOException $e){
+          //  $this->update($records);
         }
 
     }

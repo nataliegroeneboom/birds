@@ -10,35 +10,32 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>
 <form action="" method="post" enctype="multipart/form-data">
 
     <table class='table table-hover table-responsive table-bordered'>
-
+    <input type="hidden" name="bird[id]" value="<?=$bird['id'] ?? '' ?>">
         <tr>
             <td>Name</td>
-            <td><input type='text' name="bird[birdname]" class='form-control' /></td>
+            <td><input type='text' name="bird[birdname]" class='form-control' value="<?=$bird['birdname']?? '' ?>"/></td>
         </tr>
 
         <tr>
             <td>Description</td>
-            <td><textarea name="bird[description]" class='form-control'></textarea></td>
+            <td><textarea name="bird[description]" rows="6" class='form-control' ?><?=$bird['description']??''; ?></textarea></td>
         </tr>
 
         <tr>
             <td>Category</td>
             <td>
-              <?php
-  // read the product categories from the database
- // $stmt = $category->read();
 
-  // put them in a select drop-down
-  echo "<select class='form-control' name='bird[category_id]'>";
-      echo "<option>Select category...</option>";
-
+  <select class='form-control' name='bird[category_id]' >;
+      <option>Select category...</option>
+      <?php
       foreach($categories as $category){
-          echo "<option value='{$category['id']}'>{$category['name']}</option>";
+          echo "<option value='{$category['id']}' ";
+          if($bird['category_id'] == $category['id']){
+           echo "selected";
+          }
+         echo "
+>{$category['name']}</option>";
       }
-//      while ($row_category = $stmt->fetch(PDO::FETCH_ASSOC)){
-//          extract($row_category);
-//          echo "<option value='{$id}'>{$name}</option>";
-//      }
 
   echo "</select>";
   ?>
@@ -55,30 +52,39 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>
                 echo "<option> Select Location... </option>";
 
                 foreach($locations as $location){
-                    echo "<option value='{$location['id']}'>{$location['name']}</option>";
+                    echo "<option value='{$location['id']}' ";
+                    if($bird['location_id'] == $location['id']){
+                       echo "selected";
+                    }
+                   echo ">{$location['name']}</option>";
                 }
 
-//                while($row_category = $stmt_location->fetch(PDO::FETCH_ASSOC)) {
-//                    extract($row_category);
-//                    echo "<option value='{$id}'>{$name}</option>";
-//                }
+
             echo "</select>";
             ?>
 
 
             </td>
         </tr>
-        <td>
-            <tr>Population</tr>
-            <tr><input type='number' name="bird[population]"></tr>
-        </td>
         <tr>
             <td>Status</td>
             <td>
                 <select class='form-control' name="bird[status]">
                     <option>Select Status...</option>
-                    <option>Threatened</option>
-                    <option>Least Concerned</option>
+                    <option
+                        <?php
+                        if($bird['status'] == "Threatened"){
+                            echo " selected";
+                        }
+                        ?>
+                     >Threatened</option>
+                    <option
+                        <?php
+                        if($bird['status'] == "Least Concerned"){
+                            echo " selected";
+                        }
+                        ?>
+                    >Least Concerned</option>
                 </select>
             </td>
         </tr>
@@ -87,14 +93,27 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>
             Photo
           </td>
           <td>
-            <input type="file" name="image"/>
+            <input id="imagePreview" type="file" name="image" id="files" onchange="previewImage();"/>
+             <?php if(isset($bird['image'])){
+                echo "<img id='previewbird' name='image' class='img-responsive' src='files/{$bird["image"]}' />";
+                echo "<label for='files'>Change Image</label>";
+             }else{
+                echo '<div id="imagePreviewContainer" ></div>';
+                 echo "<label for='files'>Upload Image</label>";
+             }
+
+             ?>
+
           </td>
         </tr>
 
         <tr>
             <td></td>
             <td>
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">
+                  <?=$bird['id']?"Save":"Create"
+                  ?>
+                </button>
             </td>
         </tr>
 

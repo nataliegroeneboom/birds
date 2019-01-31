@@ -55,7 +55,7 @@ class BirdController{
                'name' => htmlspecialchars($result['birdname'], ENT_QUOTES, 'UTF-8'),
                'description' => htmlspecialchars($result['description'], ENT_QUOTES, 'UTF-8'),
                'category' => htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8'),
-                'population' => htmlspecialchars($result['population'], ENT_QUOTES, 'UTF-8'),
+  //              'population' => htmlspecialchars($result['population'], ENT_QUOTES, 'UTF-8'),
                 'status' => htmlspecialchars($result['status'], ENT_QUOTES, 'UTF-8'),
                 'image' => htmlspecialchars($result['image'], ENT_QUOTES, 'UTF-8'),
 
@@ -84,21 +84,30 @@ class BirdController{
             $bird_variables['created'] = date('Y-m-d H:i:s');
 
             $result = $this->birdTable->save($bird_variables);
+            header('location: index.php?action=list');
+
+        }else{
+
+            if (isset($_GET['id'])) {
+                $bird_variables = $this->birdTable->findById($_GET['id']);
+            }
+
+            $title = 'Create Bird';
+            $categories = $this->categoryTable->readAll();
+            $locations = $this->locationTable->readAll();
+            return [
+                'template' => 'create.html.php',
+                'title' => $title,
+                'variables' => [
+                    'categories' => $categories,
+                    'locations' => $locations,
+                    'bird' => $bird_variables ?? null
+
+                ]
+            ];
 
         }
 
-        $title = 'Create Bird';
-        $categories = $this->categoryTable->readAll();
-        $locations = $this->locationTable->readAll();
-        return [
-            'template' => 'create.html.php',
-            'title' => $title,
-            'variables' => [
-                'categories' => $categories,
-                 'locations' => $locations,
-                'result' => $result
 
-            ]
-        ];
     }
 }

@@ -43,7 +43,7 @@
             </a>
 
 
-            <a href="update.php?id=<?=$bird['id']?>" class='btn btn-info left-margin'>
+            <a href="index.php?action=edit&id=<?=$bird['id']?>" class='btn btn-info left-margin'>
                 <span class='glyphicon glyphicon-edit'></span> Edit
             </a>
 

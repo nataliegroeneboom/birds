@@ -10,13 +10,6 @@
       echo $bird['image']? "<img class='img-responsive' src='files/{$bird['image']}' />": "No image found"; ?>
     </div>
     <div class="individual-stats">
-      <div class="population">
-        <span class="indiv-label">Population:</span><span><?php if(empty($bird['population'])){
-          echo "Not Known";
-        }else{
-          echo "&nbsp;&nbsp;&nbsp;" .  $bird['population'];
-        }?></span>
-      </div>
       <div class="category">
         <span class="indiv-label">Category:</span>
         <span>
