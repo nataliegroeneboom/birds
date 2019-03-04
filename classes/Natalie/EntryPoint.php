@@ -7,7 +7,7 @@ namespace Natalie;
         private $routes;
         private $method;
 
-        public function __construct($route, $routes, $method){
+        public function __construct(string $route, \Natalie\Routes $routes,string $method){
             $this->route = $route;
             $this->routes = $routes;
             $this->method = $method;

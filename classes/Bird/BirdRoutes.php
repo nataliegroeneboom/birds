@@ -2,7 +2,7 @@
 
 namespace Bird;
 
-class BirdRoutes {
+class BirdRoutes implements \Natalie\Routes {
 
 
     public function getRoutes(){
@@ -52,7 +52,7 @@ class BirdRoutes {
                ]
             ]
         ];
-        
+
         return $routes;
     }
 }
