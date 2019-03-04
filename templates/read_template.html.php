@@ -13,7 +13,7 @@
 
 
   <div class='right-button-margin'>
-   <a href='index.php?action=edit' class='btn btn-primary pull-right'>
+   <a href='/bird/edit' class='btn btn-primary pull-right'>
     <span class='glyphicon glyphicon-plus'></span> Create Bird </a>
   </div>
 
@@ -38,18 +38,18 @@
         <td>
 
 
-            <a href="index.php?action=read&id=<?=$bird['id']?>" class='btn btn-primary left-margin'>
+            <a href="/bird/read?id=<?=$bird['id']?>" class='btn btn-primary left-margin'>
                 <span class='glyphicon glyphicon-list'></span> Read
             </a>
 
 
-            <a href="index.php?action=edit&id=<?=$bird['id']?>" class='btn btn-info left-margin'>
+            <a href="/bird/edit?id=<?=$bird['id']?>" class='btn btn-info left-margin'>
                 <span class='glyphicon glyphicon-edit'></span> Edit
             </a>
 
 
 
-            <form action='index.php?action=delete' method='post'>
+            <form action='/bird/delete' method='post'>
                 <input type='hidden' name='id' value='<?=$bird['id']?>'>
                 <input type='hidden' name='image' value='<?=$bird['image']?>'>
                 <input type='submit' value='Delete'>

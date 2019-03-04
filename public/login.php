@@ -10,7 +10,7 @@ $access_denied=false;
 
 if($_POST){
   include_once "../config/database.php";
-  include_once "../objects/user.php";
+  include_once "../classes/user.php";
   $database = new Database();
   $db = $database->getConnection();
 

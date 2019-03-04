@@ -7,13 +7,13 @@ include_once "../../config/core.php";
 
 // include classes
 include_once '../../config/database.php';
-include_once '../../objects/user.php';
+include_once '../../classes/user.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-// initialize objects
+// initialize classes
 $user = new User($db);
 
 // set page title

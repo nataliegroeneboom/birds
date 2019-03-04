@@ -1,29 +1,29 @@
 <?php
 
-class BirdController{
+namespace Bird\Controllers;
+use \Natalie\DatabaseTable;
+
+class Bird{
     private $birdTable;
     private $categoryTable;
     private $locationTable;
-
-
 
 
     public function __construct(DatabaseTable $birdTable, DatabaseTable $categoryTable, DatabaseTable $locationTable){
         $this->birdTable = $birdTable;
         $this->categoryTable = $categoryTable;
         $this->locationTable = $locationTable;
-
     }
 
     public function delete(){
         $this->birdTable->delete($_POST['id']);
         if($_POST['image']!==''){
             $image = $_POST['image'];
-            if(!unlink('files/'.$image)){
+            if(!unlink('/files/'.$image)){
                 return;
             }
         }
-        header('location: index.php?action=list');
+        header('location: /home');
     }
 
     public function list(){
@@ -59,7 +59,7 @@ class BirdController{
     public function read(){
         if (isset($_GET['id'])) {
             $result = $this->birdTable->findById($_GET['id']);
-
+            var_dump($_GET['id']);
             $category = $this->categoryTable->readName($result['category_id']);
             $individual = [];
             $individual[] = [
@@ -87,23 +87,30 @@ class BirdController{
     }
 
 
-
-    public function edit(){
-        $result = [];
-        if(isset($_POST['bird'])){
-            $bird_variables = $_POST['bird'];
-            if(isset($_FILES['image']) and $bird_variables['image'] !== ''){
-                if(!unlink('files/'.$bird_variables['image'])){
-                    return;
-                }
+    public function saveEdit(){
+        $bird_variables = $_POST['bird'];
+        var_dump($_FILES['image']);
+        if($_FILES['image']['tmp_name']!=='' and $bird_variables['image'] !== ''){
+            if(!unlink('files/'.$bird_variables['image'])){
+                return;
             }
-            $bird_variables['image']=!empty($_FILES['image']["name"])?sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES['image']['name']) : "";
+        }
+        if(!empty($_FILES['image']["name"])){
+            $bird_variables['image']=sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES['image']['name']);
             $bird_variables['created'] = date('Y-m-d H:i:s');
 
-            $result = $this->birdTable->save($bird_variables);
-            header('location: index.php?action=list');
+        }
+        else if($bird_variables['image']==''&& empty($_FILES['image']['name'])){
+            $bird_variables['image'] = '';
+        }
 
-        }else{
+
+        $result = $this->birdTable->save($bird_variables);
+        header('location:/home');
+    }
+
+
+    public function edit(){
 
             if (isset($_GET['id'])) {
                 $bird_variables = $this->birdTable->findById($_GET['id']);
@@ -123,8 +130,5 @@ class BirdController{
                 ]
             ];
 
-        }
-
-
-    }
+         }
 }

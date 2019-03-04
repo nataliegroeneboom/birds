@@ -6,7 +6,7 @@ $page_title = "Register";
 include_once "login_checker.php";
 
 include_once "../config/database.php";
-include_once "../objects/user.php";
+include_once "../classes/user.php";
 include_once "libs/php/utils.php";
 
 include_once "../templates/header.html.php";

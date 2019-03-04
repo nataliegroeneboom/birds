@@ -1,11 +1,12 @@
 <?php
+namespace Natalie;
 
 class DatabaseTable {
     private $conn;
     private $table;
     private $primaryKey;
 
-    public function __construct(PDO $db, string $table, string $id)
+    public function __construct(\PDO $db, string $table, string $id)
     {
         $this->conn = $db;
         $this->table = $table;

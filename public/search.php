@@ -1,8 +1,8 @@
 <?php
 include_once '../config/core.php';
 include_once '../config/database.php';
-include_once '../objects/bird.php';
-include_once '../objects/category.php';
+include_once '../classes/bird.php';
+include_once '../classes/category.php';
 
 // instantiate database and product object
 $database = new Database();

@@ -7,7 +7,7 @@
     <div class="individual-image">
       <?php
 
-      echo $bird['image']? "<img class='img-responsive' src='files/{$bird['image']}' />": "No image found"; ?>
+      echo $bird['image']? "<img class='img-responsive' src='/files/{$bird['image']}' />": "No image found"; ?>
     </div>
     <div class="individual-stats">
       <div class="category">

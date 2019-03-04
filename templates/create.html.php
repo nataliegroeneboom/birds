@@ -97,7 +97,7 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>
             <input id="imagePreview" type="file" name="image" id="files" onchange="previewImage();"/>
              <?php if(isset($bird['image'])){
 
-                echo "<img id='previewbird' name='image' class='img-responsive' src='files/{$bird["image"]}' />";
+                echo "<img id='previewbird' name='image' class='img-responsive' src='/files/{$bird["image"]}' />";
                 echo "<label for='files'>Change Image</label>";
              }else{
                 echo '<div id="imagePreviewContainer" ></div>';
