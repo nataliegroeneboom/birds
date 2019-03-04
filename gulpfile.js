@@ -1,24 +1,28 @@
 const gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
 const sass = require('gulp-sass');
-var livereload = require('gulp-livereload')
+var livereload = require('gulp-livereload');
+var autoprefixer = require('gulp-autoprefixer');
+var importer = require('node-sass-globbing');
+
+var sass_config = {
+  importer : importer
+};
 
 
 gulp.task('sass', function () {
-  gulp.src('public/libs/scss/*.scss')
-//    .pipe(plumber())
-  //  .pipe(sourcemaps.init())
-    .pipe(sass().on('error', sass.logError))
-//    .pipe(sourcemaps.write('.'))
+  gulp.src('public/libs/scss/**/*.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass(sass_config).on('error', sass.logError))
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions']
+    }))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('public/libs/css'));
 });
 
 //Type "gulp" on the command line to watch file changes
-gulp.task('default', function(){
-  livereload.listen();
-    gulp.watch('./public/libs/scss/*.scss', ['sass']);
-//    gulp.watch('./src/js/*.js', ['uglify']);
-    gulp.watch(['./public/libs/css/*.css'], function (files){
-      livereload.changed(files)
-    });
+gulp.task('default', function(){ 
+    gulp.watch('./public/libs/scss/**/*.scss', ['sass']);
+  
 });

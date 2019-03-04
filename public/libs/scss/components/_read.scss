@@ -1,0 +1,26 @@
+.individual-top{
+    display: grid;
+    grid-template-columns: 50% 30%;
+    margin-bottom: 40px;
+    .individual-image{
+  
+    
+     grid-column: 2/3;
+     grid-row: 1/2
+    }
+
+   img{
+       max-width: 600px;
+   }
+    .individual-stats{
+      grid-column: 1/2;
+      grid-row: 1/2;
+      font-size: 20px;
+      .indiv-label{
+        display: inline-block;
+        width: 160px;
+        font-size: $sub-header;
+      }
+    }
+  }
+  

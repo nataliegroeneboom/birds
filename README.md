@@ -6,4 +6,6 @@ I am learning the basics of CRUD object orientated PHP by creating a table of bi
 The entryPoint class method gets called in the index.php file.  This class is dependent on the Routes class method getRoutes.  You can use interfaces to 
 describe what methods a class should contain.  I create an interface and add the hint to the EntryPoint constructor.  I then extend the BirdRoute file to implement the interface.  This results in the BirdRoute file must contain the method inside the interface.  The BirdRoute Class can be type hinted using the interface.  
 
+All interfaces describes some gaps in the framework code that need to be filled by the project-specific code.  Each project can then fill those gaps with code that is specific to the individual website being built.  
+
 

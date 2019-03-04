@@ -116,7 +116,7 @@ class Bird{
                 $bird_variables = $this->birdTable->findById($_GET['id']);
             }
 
-            $title = 'Create Bird';
+            $title = 'Edit Bird';
             $categories = $this->categoryTable->readAll();
             $locations = $this->locationTable->readAll();
             return [

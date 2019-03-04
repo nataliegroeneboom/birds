@@ -1,0 +1,27 @@
+{
+  "name": "birds",
+  "version": "1.0.0",
+  "description": "Birds of Australia website",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nataliegroeneboom/birds.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nataliegroeneboom/birds/issues"
+  },
+  "homepage": "https://github.com/nataliegroeneboom/birds#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-livereload": "^4.0.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "node-sass-globbing": "0.0.23"
+  }
+}

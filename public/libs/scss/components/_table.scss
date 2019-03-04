@@ -1,0 +1,17 @@
+td{
+    border: none;
+
+}
+th{
+    font-size: $sub-header;
+}
+.table-hover>tbody>tr:hover{
+    background-color: $colour1-light;
+}
+
+
+.description{
+    @media(max-width: 768px){
+        display: none;
+    }
+}

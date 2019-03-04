@@ -5,8 +5,6 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>
 
 ?>
 
-
-<!-- HTML form for creating a product -->
 <form action="" method="post" enctype="multipart/form-data">
 
     <table class='table table-hover table-responsive table-bordered'>
@@ -46,8 +44,6 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>
             <td>Location</td>
             <td>
             <?php
-
-          // $stmt_location = $location->read();
 
             echo "<select class='form-control' name='bird[location_id]'>";
                 echo "<option> Select Location... </option>";
@@ -112,7 +108,7 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>
         <tr>
             <td></td>
             <td>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn bird-primary">
                   <?=$bird['id']?"Save":"Create"
                   ?>
                 </button>

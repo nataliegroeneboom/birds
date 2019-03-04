@@ -32,20 +32,35 @@ namespace Natalie;
 
 
         public function run(){
-            $routes = $this->routes->getRoutes();
-            $controller = $routes[$this->route][$this->method]['controller'];
-            $action = $routes[$this->route][$this->method]['action'];
-            $page_redirect = $controller->$action();
-            $page_title = $page_redirect['title'];
+         
+            $routes = $this->routes->getRoutes();      
+            $authentication = $this->routes->getAuthentication();
 
-            if(isset($page_redirect['message'])){
-                $message = $page_redirect['message'];
-            }
-            if(isset($page_redirect['variables'])){
-                $output = $this->loadTemplate($page_redirect['template'], $page_redirect['variables']);
+            if(isset($routes[$this->route]['login']) && $routes[$this->route]['login'] && !$authentication->isLoggedIn()){
+                header('location: /login/error');
             }else{
-                $output = $this->loadTemplate($page_redirect['template']);
+                $controller = $routes[$this->route][$this->method]['controller'];
+                $action = $routes[$this->route][$this->method]['action'];
+                $page_redirect = $controller->$action();
+                $page_title = $page_redirect['title'];
+    
+                if(isset($page_redirect['message'])){
+                    $message = $page_redirect['message'];
+                }
+                if(isset($page_redirect['variables'])){
+                    $output = $this->loadTemplate($page_redirect['template'], $page_redirect['variables']);
+                }else{
+                    $output = $this->loadTemplate($page_redirect['template']);
+                }
+            
+                echo $this->loadTemplate('layout.html.php', [
+                    'loggedIn' => $authentication->isLoggedIn(),
+                    'output' => $output,
+                    'page_title' => $page_title
+                ]);
+
             }
-            include_once "../templates/layout.html.php";
+            
+
         }
     }

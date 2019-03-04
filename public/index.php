@@ -1,11 +1,6 @@
-
-
 <?php
 
-
 try{
-
-
 
 include __DIR__ . '/../includes/autoloader.php';
 
