@@ -5,7 +5,7 @@ namespace Bird;
 class BirdRoutes {
 
 
-    public function callAction($route){
+    public function getRoutes(){
         include_once '../config/core.php';
         include_once '../includes/DatabaseConnection.php';
 
@@ -17,6 +17,12 @@ class BirdRoutes {
         $birdController = new \Bird\Controllers\Bird($birdTable, $categoryTable, $locationTable);
 
         $routes = [
+            'bird/read' => [
+                'GET' => [
+                    'controller' => $birdController,
+                    'action' => 'read'
+                ]
+                ],
             'bird/edit' => [
                 'POST' => [
                     'controller' => $birdController,
@@ -36,20 +42,17 @@ class BirdRoutes {
             'home' => [
               'GET' => [
                   'controller' => $birdController,
-                  'action' => 'home'
+                  'action' => 'list'
               ]
             ],
             '' => [
             'GET' => [
                 'controller' => $birdController,
-                'action' => 'home'
+                'action' => 'list'
                ]
             ]
         ];
-
-        $method = $_SERVER['REQUEST_METHOD'];
-        $controller = $routes[$route][$method]['controller'];
-        $action = $routes[$route][$method]['action'];
-        return $controller->$action();
+        
+        return $routes;
     }
 }

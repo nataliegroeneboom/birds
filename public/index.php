@@ -10,15 +10,10 @@ try{
 include __DIR__ . '/../includes/autoloader.php';
 
 
-
-
-
 $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
 
 
-
-
-$entryPoint = new \Natalie\EntryPoint($route, new \Bird\BirdRoutes());
+$entryPoint = new \Natalie\EntryPoint($route, new \Bird\BirdRoutes(), $_SERVER['REQUEST_METHOD']);
 $entryPoint->run();
 
 }catch(PDOException $e){

@@ -5,10 +5,12 @@ namespace Natalie;
     {
         private $route;
         private $routes;
+        private $method;
 
-        public function __construct($route, $routes){
+        public function __construct($route, $routes, $method){
             $this->route = $route;
             $this->routes = $routes;
+            $this->method = $method;
             $this->checkUrl();
         }
 
@@ -30,7 +32,10 @@ namespace Natalie;
 
 
         public function run(){
-            $page_redirect = $this->routes->callAction($this->route);
+            $routes = $this->routes->getRoutes();
+            $controller = $routes[$this->route][$this->method]['controller'];
+            $action = $routes[$this->route][$this->method]['action'];
+            $page_redirect = $controller->$action();
             $page_title = $page_redirect['title'];
 
             if(isset($page_redirect['message'])){
