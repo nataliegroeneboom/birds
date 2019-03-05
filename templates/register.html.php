@@ -11,21 +11,23 @@
 <?php endif; ?> 
 <form action='' method='post' id='register'>
  
-
-      <label for="name">Name</label>
+  <div class="user-form">
+  <label for="name">Name</label>
      <input type='text' name='user[name]' id="name" class='form-control' require value="<?=$user['name'] ?? '' ?>" />
-
-      <label for="email">Email</label>
+  </div>
+     
+  <div class="user-form">
+  <label for="email">Email</label>
       <input type='email' name='user[email]' class='form-control' require value="<?=$user['email'] ?? '' ?>" />
+  </div>
+     
  
-
-      <label for="password">Password</label>
+<div class="user-form">
+<label for="password">Password</label>
       <input type='password' name='user[password]' class='form-control' require id='passwordInput' value="<?=$user['password'] ?? '' ?>" >
-
-
-      
-
-        <input type="submit" name="submit" class="btn bird-primary" value="Register Account"/>
+</div>
+         
+        <input type="submit" name="submit" class="btn bird-primary submit" value="Register"/>
          
         
 

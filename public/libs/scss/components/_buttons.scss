@@ -1,19 +1,26 @@
 .bird-primary{
-    background-color: $colour3;
+    background-color: $green;
     padding: 7px;
     display: block;
     margin: 10px 0;
-    color: $colour4;
+    color: $dark;
+    text-transform: uppercase;
+    
 
 }
+.bird-primary.submit{
+    font-size: 20px;
+    padding: 2px 20px;
+}
 .bird-warning{
-    background: $colour2;
+    background: $red;
     padding: 7px 0;
+    text-transform: uppercase;
     input{
         width: 100%;
     }
     input[value]{
-        color: $colour4;
+        color: $dark;
         background: transparent;
         border: none;
     }
@@ -21,6 +28,6 @@
 
 .dropdown-menu{
     a{
-        background: $colour4;
+        background: $dark;
     }
 }

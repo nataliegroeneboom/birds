@@ -1,0 +1,28 @@
+#register{
+    .bird-primary{
+        margin-top: 40px;
+        color: $dark;
+    }
+}
+
+.user-form{
+    margin: 15px 0;
+    label{
+        width: 120px;
+        text-transform: uppercase;
+    }
+    input{
+     display: inline-block;
+     width: 75%;   
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .user-form{
+        margin: 7px 7px 15px;
+        input{
+            width: 100%;
+        }
+    }
+    
+}

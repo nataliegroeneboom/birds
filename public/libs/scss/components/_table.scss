@@ -4,14 +4,36 @@ td{
 }
 th{
     font-size: $sub-header;
+   
+}
+.table-header{
+    border-bottom: $dark solid 1px;
 }
 .table-hover>tbody>tr:hover{
-    background-color: $colour1-light;
+    background-color: $light-cream;
 }
-
+.table-hover>tbody>tr>td{
+    border-top: none;
+}
 
 .description{
     @media(max-width: 768px){
         display: none;
     }
+   display: block; 
+   display: -webkit-box;
+   width: 700px;
+  // height: $text*$line-height*$lines-to-show+ 2;
+ //  font-size: $text;
+   //line-height: $line-height !important;
+ 
+   box-orient: vertical;
+   overflow: hidden;
+  // text-overflow: ellipsis;
+}
+
+.content{
+    display: -webkit-box;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
 }

@@ -18,6 +18,12 @@ function previewImage(){
         reader.readAsDataURL(file);
     }
 }
+const ele = document.getElementsByClassName("description");
+const num = document.getElementsByClassName("description").length;
+for(i=0; i< num; i++){
+    $clamp(ele[i], {clamp: 5, useNativeClamp:false})
+}
+
 
 
 

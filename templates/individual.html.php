@@ -1,31 +1,24 @@
 
-<div class="container">
+
 
 
 <div class="individual-page">
-  <div class="individual-top">
-    <div class="individual-image">
+  <div class="individual-top indiv-layout">
+    <div class="individual-image box">
       <?php
 
-      echo $bird['image']? "<img src='/files/{$bird['image']}' />": "No image found"; ?>
+      echo $bird['image']? "<img class='img-responsive img-rounded' src='/files/{$bird['image']}' />": "No image found"; ?>
     </div>
-    <div class="individual-stats">
+    <div class="individual-stats box">
       <div class="category">
         <span class="indiv-label">Category:</span>
         <span>
         <?php
-         // $category->id = $bird[category_id'category_id'];
-         // $category->readName();
           echo "&nbsp;&nbsp;" .  $bird['birdname'];
          ?>
          </span>
       </div>
-<!--      <div class="location">-->
-<!--        <span class="indiv-label">Location:</span>-->
-<!--        <span>-->
-<!--          --><?php //echo "&nbsp;&nbsp;" . $bird['location'] ?>
-<!--        </span>-->
-<!--      </div>-->
+
       <div class="status">
         <span class="indiv-label">Status:</span>
         <span>
@@ -41,4 +34,4 @@
   </div>
 </div>
 
-</div>
+

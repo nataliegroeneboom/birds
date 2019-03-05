@@ -14,9 +14,7 @@ gulp.task('sass', function () {
   gulp.src('public/libs/scss/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass(sass_config).on('error', sass.logError))
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions']
-    }))
+    .pipe(autoprefixer())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('public/libs/css'));
 });

@@ -23,7 +23,7 @@ class Login{
             return [
                 'template' => 'login.html.php',
                 'title' => 'Log In',
-                'varibles' => [
+                'variables' => [
                     'error' => 'Invalid user / email'
                 ]
                 ];

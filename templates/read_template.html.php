@@ -11,7 +11,7 @@
 
 
 <table class='table table-hover table-responsive'>
-    <tr>
+    <tr class="table-header">
      <th>Product</th>
         <th class="description">Description</th>
         <th>Category</th>

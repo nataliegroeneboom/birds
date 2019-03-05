@@ -6,6 +6,9 @@
 body {
   background-color: #E4DBBF;
   font-size: 18px; }
+  @media (max-width: 540px) {
+    body {
+      font-size: 16px; } }
 
 .margin-bottom-1em {
   margin-bottom: 1em; }
@@ -48,7 +51,6 @@ div#blueimp-gallery div.modal {
   font-size: 16px;
   height: auto;
   padding: 10px;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
 .form-signin .form-control:focus {
@@ -68,8 +70,7 @@ div#blueimp-gallery div.modal {
   margin-top: 40px;
   padding: 40px 0px 20px 0px;
   background-color: #ffffff;
-  -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
-          box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16); }
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16); }
 
 .login-title {
   color: #555;
@@ -137,6 +138,63 @@ div#blueimp-gallery div.modal {
     font-family: 'Noto Sans', sans-serif;
     text-transform: uppercase; }
 
+.bird-primary {
+  background-color: #70AB8F;
+  padding: 7px;
+  display: block;
+  margin: 10px 0;
+  color: #383127;
+  text-transform: uppercase; }
+
+.bird-primary.submit {
+  font-size: 20px;
+  padding: 2px 20px; }
+
+.bird-warning {
+  background: #DC5B21;
+  padding: 7px 0;
+  text-transform: uppercase; }
+  .bird-warning input {
+    width: 100%; }
+  .bird-warning input[value] {
+    color: #383127;
+    background: transparent;
+    border: none; }
+
+.dropdown-menu a {
+  background: #383127; }
+
+.errors {
+  background: #DC5B21;
+  padding: 5px 10px;
+  border-radius: 5px; }
+  .errors p.error {
+    text-align: center;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 0; }
+  .errors ul li {
+    list-style: none; }
+
+#register .bird-primary {
+  margin-top: 40px;
+  color: #383127; }
+
+.user-form {
+  margin: 15px 0; }
+  .user-form label {
+    width: 120px;
+    text-transform: uppercase; }
+  .user-form input {
+    display: inline-block;
+    width: 75%; }
+
+@media only screen and (max-width: 768px) {
+  .user-form {
+    margin: 7px 7px 15px; }
+    .user-form input {
+      width: 100%; } }
+
 .hero {
   margin-top: -21px;
   height: 450px;
@@ -147,35 +205,22 @@ div#blueimp-gallery div.modal {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); }
+    .hero .darken-overlay h1 {
+      padding-top: 100px;
+      font-size: 40px;
+      line-height: 50px;
+      color: #F1EDDF;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-align: center; }
+
+@media only screen and (min-width: 768px) {
   .hero .darken-overlay h1 {
     position: relative;
-    text-align: center;
     padding-top: 255px;
-    color: #fff;
-    font-size: 2.8em;
-    z-index: 1;
-    text-transform: uppercase;
-    letter-spacing: 4px; }
-
-.bird-primary {
-  background-color: #70AB8F;
-  padding: 7px;
-  display: block;
-  margin: 10px 0;
-  color: #383127; }
-
-.bird-warning {
-  background: #DC5B21;
-  padding: 7px 0; }
-  .bird-warning input {
-    width: 100%; }
-  .bird-warning input[value] {
-    color: #383127;
-    background: transparent;
-    border: none; }
-
-.dropdown-menu a {
-  background: #383127; }
+    color: #F1EDDF;
+    font-size: 60px;
+    z-index: 1; } }
 
 .bird-list td.actions {
   width: 120px; }
@@ -188,25 +233,29 @@ span.glyphicon {
 
 .individual-top {
   display: grid;
-  grid-template-columns: 50% 30%;
   margin-bottom: 40px; }
-  .individual-top .individual-image {
-    grid-column: 2/3;
-    grid-row: 1/2; }
-  .individual-top img {
-    max-width: 600px; }
+  .individual-top .box {
+    margin: 15px; }
   .individual-top .individual-stats {
-    grid-column: 1/2;
-    grid-row: 1/2;
     font-size: 20px; }
     .individual-top .individual-stats .indiv-label {
       display: inline-block;
       width: 160px;
       font-size: 22px; }
 
-#register .bird-primary {
-  margin-top: 40px;
-  color: #383127; }
+.indiv-layout {
+  grid-template-columns: auto auto; }
+
+@media only screen and (max-width: 768px) {
+  .indiv-layout {
+    grid-template-columns: auto;
+    margin-bottom: 0px; }
+  .box {
+    margin: 7px 0; } }
+
+@media only screen and (min-width: 1200px) and (max-width: 769) {
+  .individual-image {
+    max-width: 50%; } }
 
 td {
   border: none; }
@@ -214,11 +263,27 @@ td {
 th {
   font-size: 22px; }
 
+.table-header {
+  border-bottom: #383127 solid 1px; }
+
 .table-hover > tbody > tr:hover {
   background-color: #F1EDDF; }
 
-@media (max-width: 768px) {
-  .description {
-    display: none; } }
+.table-hover > tbody > tr > td {
+  border-top: none; }
+
+.description {
+  display: block;
+  display: -webkit-box;
+  width: 700px;
+  box-orient: vertical;
+  overflow: hidden; }
+  @media (max-width: 768px) {
+    .description {
+      display: none; } }
+
+.content {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; }
 
 /*# sourceMappingURL=style.css.map */
