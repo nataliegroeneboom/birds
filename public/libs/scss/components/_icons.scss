@@ -1,6 +1,71 @@
 span.glyphicon{
-    color: $light-cream;
+    color: $cream;
+    &:hover{
+        color: #fff;
+    }
+}
+.navbar-collapse{
+ //   border-top: 1px solid $cream;
+    border-color: $cream !important;
 }
 .navbar-default .navbar-brand{
-    color: $light-cream;
+    color: $cream;
+    &:hover{
+        color: #fff;
+    }
 }
+
+.navbar-default .navbar-nav>li>a:hover{
+    color: #fff;
+}
+.navbar-default .navbar-nav>.open>a:hover{
+    background: black;
+    color: white;
+} 
+.navbar-default .navbar-nav>.open{
+    .dropdown-menu{
+        background: black;
+        li a{
+            background: black;
+            color: #fff;
+        }
+    }
+}
+
+.caret{
+    font-size: 21px;
+    color: $cream;
+}
+
+.navbar-default .navbar-toggle{
+    border: none;
+    margin-right: 0;
+    padding: 9px 0;
+    &:hover{
+        background: none !important;
+    }
+    &:focus{
+        background: none !important;
+    }
+    
+    .icon-bar{
+        background: $cream;
+        width: 25px;
+        height: 3px;
+        transition: transform 0.8s;
+    }
+    
+}
+.navbar-toggle.open{
+    :nth-child(2){
+        transform:translateY(7px) rotate(45deg);
+    }
+    :nth-child(3){
+        visibility: hidden;
+    }
+    :nth-child(4){
+        transform:translateY(-7px) rotate(-45deg);
+    }
+}
+
+

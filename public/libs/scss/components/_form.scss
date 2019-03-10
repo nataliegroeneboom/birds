@@ -25,4 +25,54 @@
         }
     }
     
+
 }
+
+
+    #create{
+        select{
+            appearance: none;
+            border-radius: 0px;
+            option{
+                background-color: red;
+            }
+        }
+        input, textarea{
+            border-radius: 0px;
+            @media only screen and (max-width: 320px){
+            width: 260px;
+            }
+        }
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+  
+    .imageUpload{
+        span{
+            margin: 0 3px;
+        }
+        display: inline-block;
+        background: $green;
+        padding: 7px;
+        border-radius: 4px;
+        margin: 10px 0;
+        font-size: 16px;
+        &:hover{
+            cursor: pointer;
+            box-shadow: 2px 2px 3px #A6A6A6;
+            color: $cream;
+        }
+    }
+
+    @media(max-width: 480px){
+        td.label{
+            height: 20px;
+            label{
+                float: left;
+            }
+        }
+    }
+ 
+

@@ -39,13 +39,12 @@ class Bird{
                    'image' => htmlspecialchars($bird['image'], ENT_QUOTES, 'UTF-8'),
                     ];
         }
-        $title = 'Bird List';
         ob_start();
         echo "<div class='alert alert-info'>
         content when logged in will be here
          </div>";
         $message = ob_get_clean();
-        $title = 'Bird list';
+        $title = 'Australian Birds';
         return ['template' => 'read_template.html.php',
             'title' => $title,
             'message' => $message,
@@ -59,7 +58,7 @@ class Bird{
     public function read(){
         if (isset($_GET['id'])) {
             $result = $this->birdTable->findById($_GET['id']);
-            var_dump($_GET['id']);
+           
             $category = $this->categoryTable->readName($result['category_id']);
             $individual = [];
             $individual[] = [
@@ -67,7 +66,6 @@ class Bird{
                'name' => htmlspecialchars($result['birdname'], ENT_QUOTES, 'UTF-8'),
                'description' => htmlspecialchars($result['description'], ENT_QUOTES, 'UTF-8'),
                'category' => htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8'),
-  //              'population' => htmlspecialchars($result['population'], ENT_QUOTES, 'UTF-8'),
                 'status' => htmlspecialchars($result['status'], ENT_QUOTES, 'UTF-8'),
                 'image' => htmlspecialchars($result['image'], ENT_QUOTES, 'UTF-8'),
 
@@ -89,7 +87,6 @@ class Bird{
 
     public function saveEdit(){
         $bird_variables = $_POST['bird'];
-        var_dump($_FILES['image']);
         if($_FILES['image']['tmp_name']!=='' and $bird_variables['image'] !== ''){
             if(!unlink('files/'.$bird_variables['image'])){
                 return;
@@ -115,8 +112,12 @@ class Bird{
             if (isset($_GET['id'])) {
                 $bird_variables = $this->birdTable->findById($_GET['id']);
             }
-
-            $title = 'Edit Bird';
+            if(isset($bird_variables['birdname'])){
+                $title = 'Edit ' . $bird_variables['birdname'];
+            }else{
+                $title = 'Create Bird';
+            }
+            
             $categories = $this->categoryTable->readAll();
             $locations = $this->locationTable->readAll();
             return [

@@ -1,39 +1,59 @@
 td{
     border: none;
-
+    
 }
 th{
     font-size: $sub-header;
-   
+   @media(max-width:350px){
+       font-size: 16px;
+   }
 }
-.table-header{
-    border-bottom: $dark solid 1px;
-}
+
 .table-hover>tbody>tr:hover{
     background-color: $light-cream;
 }
-.table-hover>tbody>tr>td{
+.table>tbody>tr>th, .table>tbody>tr>td{
     border-top: none;
+    border-bottom: none;
+}
+.table-header{
+    background-color: $light-cream;
+}
+
+
+#create .table-hover>tbody>tr>td{
+    border: none;
+    @media(max-width:500px){
+        display: block;
+        width: 90%;
+    }
 }
 
 .description{
+    .content{
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical; 
+    }
+    
     @media(max-width: 768px){
         display: none;
+    
     }
-   display: block; 
-   display: -webkit-box;
-   width: 700px;
-  // height: $text*$line-height*$lines-to-show+ 2;
- //  font-size: $text;
-   //line-height: $line-height !important;
+    @media(min-width:769px) and (max-width: 1149px){
+        
+    }
+    @media(min-width: 1150px){
+        width: 700px; 
+    }
  
-   box-orient: vertical;
-   overflow: hidden;
-  // text-overflow: ellipsis;
+
 }
 
 .content{
-    display: -webkit-box;
-    -webkit-line-clamp: $lines-to-show;
-    -webkit-box-orient: vertical;
+
+}
+.table-responsive{
+    border: none;
+    
 }

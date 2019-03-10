@@ -18,11 +18,18 @@ function previewImage(){
         reader.readAsDataURL(file);
     }
 }
-const ele = document.getElementsByClassName("description");
-const num = document.getElementsByClassName("description").length;
+const ele = document.getElementsByClassName("content");
+const num = document.getElementsByClassName("content").length;
+console.log(num);
 for(i=0; i< num; i++){
-    $clamp(ele[i], {clamp: 5, useNativeClamp:false})
+    console.log('clamping');
+    $clamp(ele[i], {clamp: '100px', useNativeClamp:false})
 }
+
+$('.navbar-toggle').on('click', function() {
+    $(this).toggleClass('open');
+    $('.icon-bar').toggleClass('open');
+});
 
 
 

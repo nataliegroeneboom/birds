@@ -7,8 +7,9 @@
   body{
     background-color: $cream;
     font-size: 18px;
+    overflow-x: hidden;
     @media(max-width: 540px){
-      font-size: 16px;
+      font-size: 14px;
     }
   }
   
@@ -152,7 +153,7 @@
 
   .navbar-collapse{
     ul li a{
-      color: #fff;
+      color: $cream;
       text-transform: uppercase;
     }
   }

@@ -12,7 +12,7 @@
 
 <table class='table table-hover table-responsive'>
     <tr class="table-header">
-     <th>Product</th>
+     <th>Bird</th>
         <th class="description">Description</th>
         <th>Category</th>
         <th>Actions</th>
@@ -23,7 +23,7 @@
 <?php foreach($birds as $bird){ ?>
     <tr>
         <td><?=$bird['name']?></td>
-        <td class="description"><?=$bird['description']?></td>
+        <td class="description"><p class="content"><?=$bird['description']?></p></td>
         <td><?=$bird['category']?></td>
 
         <td class="actions">

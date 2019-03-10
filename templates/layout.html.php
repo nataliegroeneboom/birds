@@ -76,6 +76,10 @@ endif;?>
 </div>
 
 <div class="container"><!-- container -->
+<?php  if(isset($_GET['q']) && $_GET['q']!=='/home'):
+  echo '<button id="btn-back"><span class="glyphicon glyphicon-menu-left"></span><a href="/home"> Back to Home page</a></button>';
+endif;
+?>
   <div class="page-header">
     <?php if($page_title!="Login"){ ?>
       <h1><?= isset($page_title) ? $page_title : "World of Australian Birds" ?></h1>
@@ -89,9 +93,12 @@ endif;?>
   ?>
   
 <main>
+
+
 <?=$output?>
 </main>
   </div>
+  <footer><div class="container"> This website is purely for website development training purposes</div></footer>
  </body> 
 <!-- /container -->
 

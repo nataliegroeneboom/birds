@@ -14,7 +14,7 @@ class BirdRoutes implements \Natalie\Routes {
     {
         include __DIR__ . '/../../includes/DatabaseConnection.php';
 
-        $this->userTable = new \Natalie\DatabaseTable($pdo, 'user', 'id');
+        $this->userTable = new \Natalie\DatabaseTable($pdo, 'users', 'id');
         $this->birdTable = new \Natalie\DatabaseTable($pdo, 'birds', 'id');
         $this->authentication = new \Natalie\Authentication($this->userTable,'email', 'password');
         $this->categoryTable = new \Natalie\DatabaseTable($pdo, 'categories', 'id');

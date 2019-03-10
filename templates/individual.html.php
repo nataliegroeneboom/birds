@@ -25,6 +25,13 @@
           <?php echo "&nbsp;&nbsp;" . $bird['status'] ?>
         </span>
       </div>
+
+      <div class="location">
+        <span class="indiv-label">Location:</span>
+        <span>
+          <?php echo "&nbsp;&nbsp;" . $bird['location'] ?>
+        </span>
+      </div>
     </div>
   </div>
   <div class="individual-bottom">

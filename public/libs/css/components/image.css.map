@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/image.scss"],"names":[],"mappings":"AACI;EADJ;IAEQ,WAAW,EAAA,EAElB","file":"image.css","sourcesContent":[".img-responsive{\n    @media(min-width: 768px){\n        width: 40vw;\n    }\n}"]}
