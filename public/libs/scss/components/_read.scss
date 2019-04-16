@@ -14,11 +14,14 @@
     //  grid-row: 1/2;
     background: rgba(0,0,0,0.1);
     padding: 15px 20px;
-      font-size: 20px;
+      font-size: $text;
       .indiv-label{
         display: inline-block;
         width: 160px;
         font-size: $sub-header;
+        @media(max-width: 480px){
+          font-size: $text;
+        }
       }
     }
   }

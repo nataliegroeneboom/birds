@@ -38,7 +38,7 @@ class DatabaseTable {
         //Set the :primaryKey variable
         $fields['primaryKey'] = $fields['id'];
         $fields = $this->processDates($fields);
-        $this->upload($fields['image']);
+      //  $this->upload($fields['image']);
         $this->query($query, $fields);
     }
 
@@ -98,7 +98,7 @@ class DatabaseTable {
         $query .= ')';
         $fields = $this->processDates($fields);
 
-        $this->upload($fields['image']);
+      //  $this->upload($fields['image']);
         $this->query($query, $fields);
     }
 

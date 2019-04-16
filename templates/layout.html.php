@@ -28,7 +28,7 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li <?php echo $page_title==="Index"?"class='active'":"";?>>
-                <a href="/home">Home</a>
+                <a href="/home"><span class="glyphicon glyphicon-home"></span>Home</a>
           </li>
         </ul>
         <?php if($loggedIn):?>
@@ -77,7 +77,7 @@ endif;?>
 
 <div class="container"><!-- container -->
 <?php  if(isset($_GET['q']) && $_GET['q']!=='/home'):
-  echo '<button id="btn-back"><span class="glyphicon glyphicon-menu-left"></span><a href="/home"> Back to Home page</a></button>';
+  echo '<button id="btn-back"><span class="	glyphicon glyphicon-arrow-left"></span><a href="/home"> Back to Home page</a></button>';
 endif;
 ?>
   <div class="page-header">

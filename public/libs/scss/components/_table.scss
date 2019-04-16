@@ -4,8 +4,9 @@ td{
 }
 th{
     font-size: $sub-header;
+    text-transform: uppercase;
    @media(max-width:350px){
-       font-size: 16px;
+       font-size: $text;
    }
 }
 
@@ -50,9 +51,6 @@ th{
 
 }
 
-.content{
-
-}
 .table-responsive{
     border: none;
     

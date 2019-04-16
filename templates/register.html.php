@@ -27,7 +27,7 @@
       <input type='password' name='user[password]' class='form-control' require id='passwordInput' value="<?=$user['password'] ?? '' ?>" >
 </div>
          
-        <input type="submit" name="submit" class="btn bird-primary submit" value="Register"/>
+<input type="submit" name="submit" class="btn bird-primary submit" value="Register"/>
          
         
 

@@ -1,18 +1,20 @@
-.bird-primary{
+.btn.bird-primary, .bird-primary{
     background-color: $green;
     padding: 7px;
     display: block;
     margin: 10px 0;
     color: $dark;
     text-transform: uppercase;
+    font-size: $text;
     &:hover{
         color: $cream;
         text-decoration: none;
         box-shadow: 2px 2px 3px #A6A6A6;
+        cursor: pointer;
     }
     @media(max-width: 480px){
         padding: 3px;
-        font-size: 14px;
+        font-size: $small-text;
     }
 
     span{
@@ -27,7 +29,7 @@
     font-size: 20px;
     padding: 2px 20px;
     width: 150px;
-    font-size: 20px;
+    font-size: $text;
 }
 .bird-warning{
     background: $red;
@@ -58,6 +60,10 @@
 #btn-back{
     background: rgba(0,0,0,0);
     border: none;
+    font-size: $sub-header;
+    &:hover{
+        cursor: pointer;
+    }
     span.glyphicon, a{
        color: black;
        font-weight: 100;
