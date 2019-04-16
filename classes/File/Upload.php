@@ -7,7 +7,7 @@ class Upload
      public $image;
      private $uploadedImage;
      private $upload;
-     private $isThere;
+     private $resultUpload;
 
      //upload new image
     //delete old image
@@ -20,21 +20,30 @@ class Upload
 
     }
 
-    public function setUploadedImage($img)
+
+    public function uploadNewImage($img)
     {
         $this->upload = $img;
-        $this->uploadedImage = $img['name'];
+        $this->uploadedImage = sha1_file($img['tmp_name']) . "-" . basename($img['name']);
         $this->uploadImage();
-
+        return $this->resultUpload['path'];
+    }
+    public function getNewImage(){
+        return $this->uploadedImage;
     }
 
-    public function checkImageHasChanged(){
+    public function deleteOldImage(){
     //check if old image needs to be deleted
      if($this->image!==''&& isset($this->uploadedImage)){
          $dir = __DIR__ . '/../../public/files/' . $this->image;
 
          if(file_exists($dir)){
-         return true;
+
+         if(unlink($dir)){
+             return true;
+         }else{
+             return false;
+         }
 
          };
      }
@@ -42,6 +51,8 @@ class Upload
 
 
     }
+
+
 
     public function getImage(){
         return $this->image;
@@ -52,7 +63,7 @@ class Upload
         if(isset($upload)){
             $path = __DIR__ . '/../../public/files/';
             $size = 420000;
-            $target_file = $path . $upload;
+            $target_file = $path . $this->uploadedImage;
             $allowedFiles = array('jpg', 'jpeg', 'png');
             $result = [];
 
@@ -62,7 +73,6 @@ class Upload
                     $file_type = pathinfo($target_file, PATHINFO_EXTENSION);
                     if(!in_array($file_type, $allowedFiles)){
                         $result['type'] = 'error';
-                        //  $this->_result['message'] = "File should be less then ".$this->_size . "bytes";
                         $result['message'] = "Only JPG, JPEG, PNG, GIF files are allowed.";
                         $result['path'] = false;
 
@@ -79,7 +89,7 @@ class Upload
                         $result['path'] = false;
                     }
                     if(!isset($result['error'])){
-                        if(move_uploaded_file($this->uploadedImage, $path)){
+                        if(move_uploaded_file($upload['tmp_name'], $target_file)){
                             $result['type'] = 'success';
                             $result['message'] = "Image uploaded";
                             $result['path'] = true;
@@ -94,6 +104,7 @@ class Upload
 
         }
 
+        $this->resultUpload = $result;
         return $result;
 
 
