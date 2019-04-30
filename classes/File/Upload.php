@@ -28,8 +28,15 @@ class Upload
         $this->uploadImage();
         return $this->resultUpload['path'];
     }
+
+
+
     public function getNewImage(){
         return $this->uploadedImage;
+    }
+
+    public function getMessage(){
+        return $this->resultUpload;
     }
 
     public function deleteOldImage(){
@@ -66,7 +73,6 @@ class Upload
             $target_file = $path . $this->uploadedImage;
             $allowedFiles = array('jpg', 'jpeg', 'png');
             $result = [];
-
             if(!empty($upload) && !empty($path) && !empty($size) && !empty($allowedFiles)){
                 //check if upload and allowed are an array
                 if(is_array($upload) && is_array($allowedFiles)){
@@ -75,8 +81,6 @@ class Upload
                         $result['type'] = 'error';
                         $result['message'] = "Only JPG, JPEG, PNG, GIF files are allowed.";
                         $result['path'] = false;
-
-
                     }
                     if($upload['size'] > $size){
                         $result['type'] = 'error';
@@ -106,7 +110,6 @@ class Upload
 
         $this->resultUpload = $result;
         return $result;
-
 
     }
 }

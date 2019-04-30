@@ -40,9 +40,12 @@ class Bird{
                     ];
         }
         ob_start();
-        echo "<div class='alert alert-info'>
-        content when logged in will be here
-         </div>";
+        if($_GET['message']=='success'){
+            echo "<div class='alert alert-info'>Image uploaded</div>";
+        }else{
+            echo "<div class='alert alert-danger'>Error Image not uploaded</div>";
+        }
+
         $message = ob_get_clean();
         $title = 'Australian Birds';
         return ['template' => 'read_template.html.php',
@@ -97,12 +100,10 @@ class Bird{
             }
         }
 
-
-
             $result = $this->birdTable->save($bird_variables);
-            header('location:/home');
-
-
+            $message = $file->getMessage();
+            $message = $message['type'];
+            header('location:/home?message='. $message);
 
     }
 

@@ -1,6 +1,9 @@
+<?php
+if(isset($message)){
+echo $message;
+}
 
-
-
+?>
 <div class="bird-list">
 
 <div class='right-button-margin'>
