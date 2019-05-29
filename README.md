@@ -4,4 +4,6 @@ I am learning the basics of CRUD object orientated PHP by creating a table of bi
 
 ##Sessions
 
-In this branch I am building upon the OOP I did prior by adding functionality to login/logout and register.
+In this branch I have made various changes
+
+###Routing
