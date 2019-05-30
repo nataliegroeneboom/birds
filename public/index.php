@@ -23,9 +23,6 @@ $locationTable = new DatabaseTable($db, 'location', 'id');
 $controller = new BirdController($birdTable, $categoryTable, $locationTable);
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'list';
-//$allowedFile = array('jpg', 'png', 'jpeg');
-//$fileUpload = new UploadFile($files = [], 'files/', 4024000, $allowedFile);
-
 $page_redirect = $controller->$action();
 if(isset($page_redirect['variables'])){
     extract($page_redirect['variables']);
