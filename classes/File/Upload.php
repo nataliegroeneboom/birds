@@ -69,6 +69,7 @@ class Upload
         $upload = $this->upload;
         if(isset($upload)){
             $path = __DIR__ . '/../../public/files/';
+
             $size = 420000;
             $target_file = $path . $this->uploadedImage;
             $allowedFiles = array('jpg', 'jpeg', 'png');

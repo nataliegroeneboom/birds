@@ -101,9 +101,9 @@ class Bird{
         }
 
             $result = $this->birdTable->save($bird_variables);
-            $message = $file->getMessage();
-            $message = $message['type'];
-            header('location:/home?message='. $message);
+            header('location:/home');
+            exit;
+
 
     }
 

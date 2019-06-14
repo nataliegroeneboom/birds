@@ -1,20 +1,19 @@
 
 
 <?php
-echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>";
+echo isset($result['message'])?"<p>{$result['message']}</p>": '';
 
 ?>
 
 <form action="" method="post" enctype="multipart/form-data" id="create">
 
     <table class='table table-hover table-responsive table-bordered'>
-    <input type="hidden" name="bird[id]" value="<?=$bird['id'] ?? '' ?>">
+        <input type="hidden" name="bird[id]" value="<?=$bird['id'] ?? '' ?>">
         <input type="hidden" name="bird[image]" value="<?=$bird['image'] ?? '' ?>">
         <tr>
             <td class="label"><label for="name">Name</label></td>
             <td><input type='text' name="bird[birdname]" id="name" class='form-control' value="<?=$bird['birdname']?? '' ?>"/></td>
         </tr>
-
         <tr>
             <td class="label"><label for="description">Description</label></td>
             <td><textarea name="bird[description]" id="description" rows="6" class='form-control' ?><?=$bird['description']??''; ?></textarea></td>
@@ -32,12 +31,11 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": "<p>No Message</p>
           if($bird['category_id'] == $category['id']){
            echo "selected";
           }
-         echo "
->{$category['name']}</option>";
+         echo ">{$category['name']}</option>";
       }
-
-  echo "</select>";
-  ?>
+      ?>
+    </select>
+      
             </td>
         </tr>
         <tr>

@@ -42,6 +42,7 @@
             </a>
             <ul class="dropdown-menu" role="menu">
               <li>
+                <a href="/sighting/create">Add a sighting</a>
                 <a href="/logout">Logout</a>
               </li>
 
@@ -85,10 +86,12 @@ endif;
       <h1><?= isset($page_title) ? $page_title : "World of Australian Birds" ?></h1>
   </div>
   <?php } 
- if(isset($message)){
-    echo $message;
- } 
-  
+ if(isset($_SESSION['error'])){
+   foreach($_SESSION['error'] as $error){
+    echo $error;
+   }
+   unset($_SESSION['error']);
+ }
 
   ?>
   
