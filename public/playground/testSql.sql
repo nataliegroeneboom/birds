@@ -1,5 +1,5 @@
 
-CREATE TABLE posts (
+CREATE TABLE sightings (
 id INT NOT NULL AUTO_INCREMENT,
 body TEXT,
 userId INT,
@@ -15,7 +15,7 @@ id INT NOT NULL AUTO_INCREMENT,
 fileName VARCHAR(500),
 postId INT,
 PRIMARY KEY (id),
-FOREIGN KEY (postId) REFERENCES posts(id)
+FOREIGN KEY (postId) REFERENCES sightings(id)
 );
 
 

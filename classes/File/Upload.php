@@ -23,7 +23,7 @@ class Upload
     public function setUploadedImage($img)
     {
         $this->upload = $img;
-        $this->uploadedImage = $img['name'];
+        $this->uploadedImage = $img['image'];
         $this->uploadImage();
 
     }
@@ -51,8 +51,9 @@ class Upload
         $upload = $this->upload;
         if(isset($upload)){
             $path = __DIR__ . '/../../public/files/';
+
             $size = 420000;
-            $target_file = $path . $upload;
+            $target_file = $path . basename($upload);
             $allowedFiles = array('jpg', 'jpeg', 'png');
             $result = [];
 
@@ -79,7 +80,7 @@ class Upload
                         $result['path'] = false;
                     }
                     if(!isset($result['error'])){
-                        if(move_uploaded_file($this->uploadedImage, $path)){
+                        if(move_uploaded_file($this->uploadedImage['tmp_name'], $target_file)){
                             $result['type'] = 'success';
                             $result['message'] = "Image uploaded";
                             $result['path'] = true;

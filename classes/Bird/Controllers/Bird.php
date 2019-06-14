@@ -87,19 +87,6 @@ class Bird{
 
     public function saveEdit(){
         $bird_variables = $_POST['bird'];
-        // if($_FILES['image']['tmp_name']!=='' and $bird_variables['image'] !== ''){
-        //     if(!unlink('files/'.$bird_variables['image'])){
-        //         return;
-        //     }
-        // }
-        // if(!empty($_FILES['image']["name"])){
-        //     $bird_variables['image']=sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES['image']['name']);
-        //     $bird_variables['created'] = date('Y-m-d H:i:s');
-
-        // }
-        // else if($bird_variables['image']==''&& empty($_FILES['image']['name'])){
-        //     $bird_variables['image'] = '';
-        // }
         $file = new \File\Upload;
         $file->setImage($bird_variables['image']);
         $file->setUploadedImage($_FILES['image']);
@@ -107,7 +94,7 @@ class Bird{
 
             $result = $this->birdTable->save($bird_variables);
             header('location:/home');
-
+            exit;
 
 
     }

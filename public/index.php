@@ -4,7 +4,6 @@ try{
 
 include __DIR__ . '/../includes/autoloader.php';
 
-
 $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
 
 

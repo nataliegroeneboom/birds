@@ -38,7 +38,6 @@ class DatabaseTable {
         //Set the :primaryKey variable
         $fields['primaryKey'] = $fields['id'];
         $fields = $this->processDates($fields);
-      //  $this->upload($fields['image']);
         $this->query($query, $fields);
     }
 
@@ -78,6 +77,8 @@ class DatabaseTable {
 
     }
 
+ 
+
     public function readAll(){
         $result = $this->query('SELECT * FROM ' . $this->table);
         return $result->fetchAll();
@@ -97,8 +98,6 @@ class DatabaseTable {
         $query = rtrim($query, ',');
         $query .= ')';
         $fields = $this->processDates($fields);
-
-      //  $this->upload($fields['image']);
         $this->query($query, $fields);
     }
 
@@ -114,7 +113,6 @@ foreach($fields as $key => $value){
 
     public function save($records){
         try{
-
             if ($records[$this->primaryKey] == '') {
                 $records[$this->primaryKey] = null;
             }
@@ -136,6 +134,18 @@ foreach($fields as $key => $value){
         }
 
     }
+
+    public function lastPrimary(){
+        'SELECT `' . $this->primaryKey . '` 
+        FROM `'. $this->table.'`
+        ORDER BY `' . $this->primaryKey . '` DESC
+        LIMIT 1';
+        
+    }
+
+
+
+
 
     private function upload($file){
         $upload = $_FILES['image'];

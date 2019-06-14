@@ -6,6 +6,7 @@ class Authentication {
     private $usernameColumn;
     private $passwordColumn;
 
+
     public function __construct(DatabaseTable $users, $usernameColumn, $passwordColumn){
         session_start();
         $this->users = $users;
@@ -20,6 +21,7 @@ class Authentication {
             session_regenerate_id();
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $user[0][$this->passwordColumn];
+            $_SESSION['userId'] = $user[0]['id'];
             return true;
         }else{
             return false;
@@ -37,4 +39,12 @@ class Authentication {
         }
         return false;
     }
+
+    public function setError($error){
+        $_SESSION['error'] = $error;
+    }
+
+    
+   
+
 }
