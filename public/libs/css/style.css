@@ -152,7 +152,8 @@ div#blueimp-gallery div.modal {
   .btn.bird-primary:hover, .bird-primary:hover {
     color: #E4DBBF;
     text-decoration: none;
-    box-shadow: 2px 2px 3px #A6A6A6; }
+    box-shadow: 2px 2px 3px #A6A6A6;
+    cursor: pointer; }
   @media (max-width: 480px) {
     .btn.bird-primary, .bird-primary {
       padding: 3px;
@@ -359,6 +360,10 @@ span.glyphicon {
 .navbar-toggle.open :nth-child(4) {
   -webkit-transform: translateY(-7px) rotate(-45deg);
           transform: translateY(-7px) rotate(-45deg); }
+
+#map {
+  height: 500px !important;
+  width: 700px; }
 
 .individual-top {
   display: grid;

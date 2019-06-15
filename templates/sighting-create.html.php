@@ -39,3 +39,4 @@
         </tr>   
     </table>
 </form>
+<div id="map"></div>

@@ -122,6 +122,28 @@ endif;
 <script src="/libs/js/clamp.min.js"></script>
 
 <script src="/libs/js/main.js"></script>
+<!-- google maps -->
+<script>
+function initMap(){
+    var location = {lat: -25.363, lng: 131.044};
+    var map = new google.maps.Map(document.getElementById("map"),
+    {
+        zoom: 4,
+        center: location
+    });
+    var uluru = {lat: -25.344, lng: 131.036};
+    var marker = new google.maps.Marker({position: uluru, map: map});
+    var infoWindow = new google.maps.InfoWindow({
+      content: '<div>Uluru</div>'
+    });
+    marker.addListener('click', function(){
+      infoWindow.open(map, marker);
+    });
+}
+</script>
+<script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIW2dHjvWFBCPoN8q-2T8lwTIbkE5laqY&callback=initMap"
+async defer></script>
 
 </body>
 </html>
