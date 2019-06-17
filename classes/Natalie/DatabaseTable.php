@@ -22,6 +22,15 @@ class DatabaseTable {
 
     }
 
+    private function queryReturnId($sql, $parameters = []){
+        $sql;
+        $parameters;
+        $query = $this->conn->prepare($sql);
+        $query->execute($parameters);
+        $id = $this->conn->lastInsertId();
+        return $id;
+    }
+
     public function sanitise($post){
         foreach($post as $key => $value){
             $post[$key] = htmlspecialchars($value, ENT_QUOTES, "UTF-8");
@@ -67,6 +76,8 @@ class DatabaseTable {
         return $query->fetchAll();
      }
 
+
+
     public function findById($value){
         $query = 'SELECT * FROM `' . $this->table . '` WHERE `' . $this->primaryKey .  '` = :value';
         $parameters = [
@@ -79,8 +90,8 @@ class DatabaseTable {
 
  
 
-    public function readAll(){
-        $result = $this->query('SELECT * FROM ' . $this->table);
+    public function readAll($column){
+        $result = $this->query('SELECT * FROM ' . $this->table . ' ORDER BY ' . $column . ' ASC');
         return $result->fetchAll();
     }
 
@@ -130,22 +141,57 @@ foreach($fields as $key => $value){
 
 
         }catch(PDOException $e){
-          //  $this->update($records);
+            $this->update($records);
         }
 
     }
 
-    public function lastPrimary(){
-        'SELECT `' . $this->primaryKey . '` 
-        FROM `'. $this->table.'`
-        ORDER BY `' . $this->primaryKey . '` DESC
-        LIMIT 1';
-        
+    public function lastPrimary($record){
+        $query = 'INSERT INTO `' . $this->table . '` (';
+        foreach ($record as $key => $value) {
+            $query .= '`' . $key . '`,';
+        }
+        $query = rtrim($query, ',');
+        $query .= ') VALUES (';
+        foreach ($record as $key => $value) {
+            $query .= ':' . $key . ',';
+        }
+        $query = rtrim($query, ',');
+        $query .= ')';
+        $fields = $this->processDates($record);
+        $id = $this->queryReturnId($query, $fields);
+        return $id;
+
     }
 
 
+    public function getMarkers($value)
+    {
+        $query = 'SELECT name, SIGHTINGS.body, SIGHTINGS.place, SIGHTINGS.latitude, SIGHTINGS.longitude 
+                  FROM ' . $this->table . ' SIGHTINGS
+                  JOIN users UB on UB.id=SIGHTINGS.userId
+                   WHERE birdId  = :value';
+        $parameters = [
+            'value' => $value
+        ];
+        $query = $this->query($query, $parameters);
+        return $query->fetchAll();
+    }
 
 
+    public function getSightingByBirdId($value){
+       $query = 'SELECT name, SIGHTING.place, postDate, fileName
+                FROM ' . $this->table . ' SIGHTING
+                JOIN users USER ON USER.id = userId
+                JOIN images IMAGE on IMAGE.sightingId = SIGHTING.id
+                WHERE SIGHTING.birdId = :value';
+
+        $parameters = [
+            'value' => $value
+        ];
+        $query = $this->query($query, $parameters);
+        return $query->fetchAll();
+    }
 
     private function upload($file){
         $upload = $_FILES['image'];

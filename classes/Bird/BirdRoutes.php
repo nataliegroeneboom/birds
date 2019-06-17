@@ -11,6 +11,7 @@ class BirdRoutes implements \Natalie\Routes {
     private $locationTable;
     private $sightingTable;
     private $errorArray;
+    private $imageTable;
 
     public function __construct()
     {
@@ -23,6 +24,7 @@ class BirdRoutes implements \Natalie\Routes {
         $this->locationTable = new \Natalie\DatabaseTable($pdo, 'location', 'id');
         $this->sightingTable = new \Natalie\DatabaseTable($pdo, 'sightings', 'id');
         $this->errorArray = new \File\ErrorRoutes();
+        $this->imageTable = new \Natalie\DatabaseTable($pdo, 'images', 'id');
 
         
         
@@ -30,10 +32,15 @@ class BirdRoutes implements \Natalie\Routes {
 
     public function getRoutes(): array{
            
-        $birdController = new \Bird\Controllers\Bird($this->birdTable, $this->categoryTable, $this->locationTable);
-        $sightingsController = new \Bird\Controllers\Sighting($this->birdTable, $this->sightingTable, $this->errorArray, $this->authentication);
+        $birdController = new \Bird\Controllers\Bird($this->birdTable, $this->categoryTable, $this->locationTable, $this->sightingTable);
+        $sightingsController = new \Bird\Controllers\Sighting($this->birdTable,
+            $this->sightingTable,
+            $this->errorArray,
+            $this->authentication,
+            $this->imageTable);
         $userController = new \Bird\Controllers\Register($this->userTable);
         $loginController = new \Bird\Controllers\Login($this->authentication);
+
 
         $routes = [
             'user/register' => [

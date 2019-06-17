@@ -8,21 +8,27 @@ class Sighting
     private $sightingTable;
     private $errors;
     private $sessions;
-  
-
+    private $imageTable;
+    private $currentId;
  
 
-    public function __construct(DatabaseTable $birdTable, DatabaseTable $sightingTable, \File\ErrorRoutes $errors, \Natalie\Authentication $sessions){
+    public function __construct(
+        DatabaseTable $birdTable,
+        DatabaseTable $sightingTable,
+        \File\ErrorRoutes $errors,
+        \Natalie\Authentication $sessions,
+        DatabaseTable $imageTable){
         $this->birdTable = $birdTable;
         $this->sightingTable = $sightingTable;  
         $this->errors = $errors->getRoutes();  
         $this->sessions = $sessions;
+        $this->imageTable = $imageTable;
     }
 
 
     public function create(){
         $title = 'Add a Sighting';
-        $birds = $this->birdTable->readAll();
+        $birds = $this->birdTable->readAll('birdname');
         return [
             'template' => 'sighting-create.html.php',
             'title' => $title,
@@ -31,18 +37,50 @@ class Sighting
     }
 
     public function store(){
-  
-        $sighting_variables = $_POST['sighting'];
-            $sighting_variables['userId'] = $_SESSION['userId'];
-            $this->sightingTable->save($sighting_variables);
-    
-        
-        
         $message = [];
+        $sighting_variables = $_POST['sighting'];
+        $sighting_variables['userId'] = $_SESSION['userId'];
+        if(!isset($sighting_variables['birdId'])){
+            $error = "<div class='alert alert-danger'> Bird Select field can't be empty</div>";
+            array_push($message, $error);
+        }
+        foreach ($sighting_variables as $key => $value){
+          switch($key):
+              case 'latitude':
+                  break;
+              case 'longitude':
+                  break;
+              case 'userId':
+                  break;
+              default:
+                  if($value==''){
+                      $error = "<div class='alert alert-danger'>{$key} field can't be empty</div>";
+                      array_push($message, $error);
+                  }
 
-        if(isset($_FILES['images'])){
+        endswitch;
+
+        }
+
+        if(!empty($message)){
+            $this->sessions->setError($message);
+            header('location:/sighting/create');
+            exit;
+        }else{
+
+            $this->currentId = $this->sightingTable->lastPrimary($sighting_variables);
+        }
+
+
+
+
+
+        if(!empty($_FILES['images']['name'][0])){
+
          $file_array = $this->reArrayFiles($_FILES['images']); 
         for($i=0; $i<count($file_array); $i++){
+           $image = $_FILES['images'];
+            $image_name = sha1_file($image['tmp_name'][$i]) . "-" . basename($image['name'][$i]);
             if($file_array[$i]['error']){
                 $error =  "<div class='alert alert-danger'>{$file_array[$i]['name']} - {$this->errors[$file_array[$i]['error']]}";
                 array_push($message, $error);
@@ -57,17 +95,18 @@ class Sighting
                 array_push($message, $error);
               }
               else{
-                  $this->pre_r($this->errors);
-                 move_uploaded_file($file_array[$i]['tmp_name'],  'files/' . $file_array[$i]['name']);
+
+                 $images['fileName'] = $image_name;
+                 $images['sightingId'] = $this->currentId;
+                 $this->imageTable->save($images);
+                 move_uploaded_file($file_array[$i]['tmp_name'],  'files/' . $image_name);
                  $error= "<div class='alert alert-success'>{$file_array[$i]['name']} - {$this->errors[$file_array[$i]['error']]}</div>";
                  array_push($message, $error);
               }
 
             }
         }
-        // var_dump($message);
         $this->sessions->setError($message);
-
         }
         header('location:/home');
         exit;

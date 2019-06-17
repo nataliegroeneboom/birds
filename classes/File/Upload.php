@@ -8,6 +8,8 @@ class Upload
      private $uploadedImage;
      private $upload;
      private $resultUpload;
+     private $audio;
+     private $uploadedAudioFile;
 
      //upload new image
     //delete old image
@@ -29,6 +31,20 @@ class Upload
         return $this->resultUpload['path'];
     }
 
+    public function uploadAudio($aud){
+        $this->audio = $aud;
+        $name = $this->audio['name'];
+        $name = str_replace( " ", '', $name);
+        $name = strtolower($name);
+       $this->uploadAudioFile = $name;
+        $path = __DIR__ . '/../../public/files/';
+        $target_file = $path . $name;
+        move_uploaded_file($this->audio['tmp_name'], $target_file);
+    }
+
+    public function getAudioName(){
+        return $this->uploadAudioFile;
+    }
 
 
     public function getNewImage(){
@@ -68,6 +84,7 @@ class Upload
     private function uploadImage(){
         $upload = $this->upload;
         if(isset($upload)){
+
             $path = __DIR__ . '/../../public/files/';
 
             $size = 420000;

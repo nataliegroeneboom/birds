@@ -5,7 +5,7 @@
             <td class="label"><label for="sighting[birdId]">Category</label></td>
             <td>
                 <select class='form-control' name='sighting[birdId]' id="bird-sighting">
-                    <option>Select bird...</option>
+                    <option value disabled selected>Select bird...</option>
                     <?php
                         foreach($birds as $bird){
                             echo "<option value='{$bird['id']}' ";
@@ -30,7 +30,21 @@
                  
         </tr>
         <tr>
-            <td></td>
+        <tr>
+            <td><label for="">Location</label></td>
+            <td><div id="locationField">
+                <input id="autocomplete"
+             placeholder="Enter your address"
+             onFocus="geolocate()"
+             type="text"/></div>
+             <input type="hidden" id="place" name="sighting[place]" />
+             <input type="hidden" id="lat" name="sighting[latitude]" />
+             <input type="hidden" id="lng" name="sighting[longitude]" /> 
+            </td>
+        </tr>
+            <td>
+
+            </td>
             <td>
                 <button type="submit" name="submit" class="btn bird-primary submit">
                  Create
@@ -39,4 +53,14 @@
         </tr>   
     </table>
 </form>
-<div id="map"></div>
+
+<div id="locationField">
+      <input id="autocomplete"
+             placeholder="Enter your address"
+             onFocus="geolocate()"
+             type="text"/>
+    </div>
+
+
+
+

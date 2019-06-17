@@ -200,6 +200,37 @@ div#blueimp-gallery div.modal {
       font-weight: bold;
       text-decoration: none; }
 
+.owl-item {
+  height: 350px;
+  width: 250px;
+  overflow: hidden;
+  margin: 3px; }
+  .owl-item image {
+    border-radius: 0px; }
+
+.carousel-item {
+  position: relative; }
+
+.img-info {
+  position: absolute;
+  z-index: 2;
+  top: 0px;
+  opacity: 0;
+  height: 100%;
+  width: 100%; }
+  .img-info .img-position {
+    margin-top: 220px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    padding: 15px; }
+    .img-info .img-position p {
+      color: #fff; }
+  .img-info:hover {
+    opacity: 1; }
+
+.owl-carousel {
+  height: 400px; }
+
 .errors {
   background: #DC5B21;
   padding: 5px 10px;

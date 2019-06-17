@@ -23,6 +23,19 @@ $('.navbar-toggle').on('click', function() {
     $('.icon-bar').toggleClass('open');
 });
 
+$(document).ready(function(){
+    $(".owl-carousel").owlCarousel({
+        autoPlay: 3000,
+        loop:true,
+        items: 4,
+        itemsDesktop : [1199,3],
+        itemsDesktopSmall : [979,3]
+    });
+});
+
+
+
+
 
 
 

@@ -43,7 +43,16 @@ namespace Natalie;
                 $action = $routes[$this->route][$this->method]['action'];
                 $page_redirect = $controller->$action();
                 $page_title = $page_redirect['title'];
-    
+                if(isset($_GET['id'])){
+                include __DIR__ . '/../../includes/DatabaseConnection.php';
+                $sightingsTable = new \Natalie\DatabaseTable($pdo, 'sightings', 'id');
+                $usersTable = new \Natalie\DatabaseTable($pdo, 'users', 'id');
+                $google = new \File\GoogleMap($sightingsTable, $usersTable);
+                $coords = $google->getCoordArray($_GET['id']);
+                }else{
+                    $coords = '';
+                }
+
                 if(isset($page_redirect['message'])){
                     $message = $page_redirect['message'];
                 }
@@ -56,7 +65,10 @@ namespace Natalie;
                 echo $this->loadTemplate('layout.html.php', [
                     'loggedIn' => $authentication->isLoggedIn(),
                     'output' => $output,
-                    'page_title' => $page_title
+                    'page_title' => $page_title,
+                    'coordinates' => $coords,
+                    'route' => $this->route
+
                 ]);
 
             }

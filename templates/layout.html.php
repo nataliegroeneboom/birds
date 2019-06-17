@@ -6,12 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><?php echo $page_title? strip_tags($page_title): "Bird Encylopedia" ?></title>
     <!-- jquery theme roller -->
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" />
-  <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="/libs/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/libs/css/owl.carousel.default.min.css" type="text/css">
+
+
+    <!-- Bootstrap CSS -->
 
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen" />
-  <link rel="stylesheet" type="text/css" href="/libs/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/libs/css/style.css" />
    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" />
+
 </head>
 <body>
 <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -105,12 +111,15 @@ endif;
  </body> 
 <!-- /container -->
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+ jQuery (necessary for Bootstrap's JavaScript plugins)
 <script
-        src="http://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>-->
+<script src="/libs/js/owl.carousel.min.js"></script>
+
 
 <!-- Latest compiled and minified Bootstrap JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -118,32 +127,145 @@ endif;
 <!-- bootbox library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 
+
+
+
 <!-- Clamp.js file library -->
 <script src="/libs/js/clamp.min.js"></script>
 
 <script src="/libs/js/main.js"></script>
+
+
+
+
 <!-- google maps -->
 <script>
-function initMap(){
+function initialize(){
+  if(getMarkers() !== 0){
+      initMap();
+  }
+  if(getRoute() == 1){
+      initAutocomplete()
+  }
+
+}
+
+
+var autocomplete;
+
+function initAutocomplete() {
+
+  // Create the autocomplete object, restricting the search predictions to
+  // geographical location types.
+  var options = {
+  componentRestrictions: {country: "au"}
+ };
+  autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autocomplete'), options);
+
+  // When the user selects an address from the drop-down, populate the
+  // address fields in the form.
+  autocomplete.addListener('place_changed', fillInAddress);
+}
+
+function fillInAddress() {
+    console.log('fill int');
+  // Get the place details from the autocomplete object.
+  var place = autocomplete.getPlace();
+  console.log(place);
+  document.getElementById('place').value = place.name;
+var lat = place.geometry.location.lat();
+console.log(lat);
+document.getElementById('lat').value = lat;
+console.log(lat);
+
+var lng = place.geometry.location.lng();
+document.getElementById('lng').value = lng;
+
+}
+
+function geolocate() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle(
+                {center: geolocation, radius: position.coords.accuracy});
+            autocomplete.setBounds(circle.getBounds());
+        });
+    }
+}
+function getMarkers(){
+    var markers = <?php echo $coordinates == ''? 0 : $coordinates ?>;
+     return markers;
+ }
+
+function getRoute(){
+    var route = <?php echo $route == 'sighting/create'? 1 : 0 ?>;
+    return route;
+}
+
+
+function initMap() {
     var location = {lat: -25.363, lng: 131.044};
     var map = new google.maps.Map(document.getElementById("map"),
-    {
-        zoom: 4,
-        center: location
-    });
-    var uluru = {lat: -25.344, lng: 131.036};
-    var marker = new google.maps.Marker({position: uluru, map: map});
-    var infoWindow = new google.maps.InfoWindow({
-      content: '<div>Uluru</div>'
-    });
-    marker.addListener('click', function(){
-      infoWindow.open(map, marker);
-    });
+        {
+            zoom: 4,
+            center: location
+        });
+
+        var markers = getMarkers();
+        console.log(markers);
+         var infowindow = new google.maps.InfoWindow();
+
+    for (var i = 0, length = markers.length; i < length; i++) {
+
+        var data = markers[i];
+        console.log(data);
+        latLng = new google.maps.LatLng(data['latitude'], data['longitude']);
+        //
+        // // Creating a marker and putting it on the map
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+        });
+
+
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                var content = '<h5>' + markers[i]['place'] + '</h5>' +
+                    '<div><p>' + markers[i]['body'] + '</p></div>' +
+                "<div><p class='user'>" + markers[i]['name'] + "</p>"
+
+                infowindow.setContent(content);
+                if(!marker.open){
+                    infowindow.open(map, marker);
+                    marker.open = true;
+                }else{
+                    infowindow.close();
+                    marker.open = false;
+                }
+
+
+            }
+        })(marker, i));
+ }
+
 }
+
+
+
+
+
+
 </script>
+
 <script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIW2dHjvWFBCPoN8q-2T8lwTIbkE5laqY&callback=initMap"
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlXmpU-qkL1g7zv0ysjFh4jrJY9HtB7sg&libraries=places&callback=initialize"
 async defer></script>
+
 
 </body>
 </html>

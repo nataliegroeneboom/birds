@@ -37,8 +37,8 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": '';
     </select>
       
             </td>
-        </tr>
-        <tr>
+      </tr>
+      <tr>
             <td class="label"><label for="location">Location</label></td>
             <td>
             <?php
@@ -82,6 +82,11 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": '';
                     >Least Concerned</option>
                 </select>
             </td>
+        </tr>
+        <tr>
+            <td class="label"><label for="sound">MP3 sound clip</label></td>
+            <td><label class="imageUpload">choose mp3 sound<input type="file" value="audio" name="audioFile"></label>
+                </td>
         </tr>
         <tr>
           <td class="label"><label for="files">

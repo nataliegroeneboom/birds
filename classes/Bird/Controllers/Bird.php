@@ -7,12 +7,18 @@ class Bird{
     private $birdTable;
     private $categoryTable;
     private $locationTable;
+    private $sightingTable;
 
 
-    public function __construct(DatabaseTable $birdTable, DatabaseTable $categoryTable, DatabaseTable $locationTable){
+
+    public function __construct(DatabaseTable $birdTable, 
+                            DatabaseTable $categoryTable,
+                            DatabaseTable $locationTable,
+                            DatabaseTable $sightingTable){
         $this->birdTable = $birdTable;
         $this->categoryTable = $categoryTable;
         $this->locationTable = $locationTable;
+        $this->sightingTable = $sightingTable;
     }
 
     public function delete(){
@@ -27,7 +33,7 @@ class Bird{
     }
 
     public function list(){
-    $result = $this->birdTable->readAll();
+    $result = $this->birdTable->readAll('birdname');
     $birds = [];
     foreach($result as $bird){
         $category = $this->categoryTable->readName($bird['category_id']);
@@ -71,9 +77,9 @@ class Bird{
                'category' => htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8'),
                 'status' => htmlspecialchars($result['status'], ENT_QUOTES, 'UTF-8'),
                 'image' => htmlspecialchars($result['image'], ENT_QUOTES, 'UTF-8'),
-
-
             ];
+
+            $sightings = $this->sightingTable->getSightingByBirdId($_GET['id']);
 
             $title = $result['birdname'];
 
@@ -81,7 +87,8 @@ class Bird{
                 'title' => $title,
                 'variables'=> [
                     'bird' => $result,
-
+                    'category' => $category,
+                    'sightings' => $sightings
                 ]
         ];
         }
@@ -99,14 +106,27 @@ class Bird{
             $bird_variables['image'] = $file->getNewImage();
             }
         }
+        if(!empty($_FILES['audioFile']['name'])){
 
-            $result = $this->birdTable->save($bird_variables);
-            header('location:/home');
-            exit;
+            $audio = $_FILES['audioFile']['name'];
+            $file->uploadAudio($_FILES['audioFile']);
+            $bird_variables['audio'] = $file->getAudioName();
+        }
+
+
+
+        $result = $this->birdTable->save($bird_variables);
+        header('location:/home');
+        exit;
 
 
     }
 
+    protected function pre_r($array){
+        echo '<pre>';
+        print_r($array);
+        echo '</pre>';
+    }
 
     public function edit(){
 
@@ -119,8 +139,8 @@ class Bird{
                 $title = 'Create Bird';
             }
             
-            $categories = $this->categoryTable->readAll();
-            $locations = $this->locationTable->readAll();
+            $categories = $this->categoryTable->readAll('name');
+            $locations = $this->locationTable->readAll('name');
             return [
                 'template' => 'create.html.php',
                 'title' => $title,
