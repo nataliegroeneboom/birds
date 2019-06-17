@@ -57,7 +57,7 @@
 <div id="locationField">
       <input id="autocomplete"
              placeholder="Enter your address"
-             onFocus="geolocate()"
+        
              type="text"/>
     </div>
 

@@ -3,9 +3,7 @@
 
 
 <div class="individual-page">
-  <pre>
 
-  </pre>
   <div class="individual-top indiv-layout">
     <div class="individual-image box">
       <?php
@@ -44,39 +42,29 @@
     </div>
   </div>
   <div class="individual-bottom">
-
     <p>
       <?=$bird['description'] ?>
     </p>
   </div>
     <div class="sighting-section">
         <h2>Bird Sightings</h2>
-        <div class="owl-carousel"
-            <?php foreach($sightings as $sighting) { ?>
-            <div class="carousel-image-wrapper">
-                <?php
-                if (!empty($sighting['fileName'])) {
-                    $timestamp = strtotime($sighting['postDate']);
-                    $date =  date("d F y", $timestamp);
-                    echo "<div class='carousel-item'>";
-                    echo "<img class='img-rounded' src='/files/{$sighting['fileName']}' />";
-                    echo "<div class='img-info'>
-                            <div class='img-position'>
-                                 <p>Posted: {$date}</p>
-                                 <p>Sighted: {$sighting['place']}</p>
-                                 <h4>by {$sighting['name']}</h4>    
-                            </div>
-                       
-                       </div>";
-                    echo "</div>";
-                }
-                }
-                ?>
-            </div>
+        <div class="owl-carousel owl-theme">
+              <div class="item"><h4>1</h4></div>
+              <div class="item"><h4>2</h4></div>
+              <div class="item"><h4>3</h4></div>
+              <div class="item"><h4>4</h4></div>
+              <div class="item"><h4>5</h4></div>
+              <div class="item"><h4>6</h4></div>
+              <div class="item"><h4>7</h4></div>
+              <div class="item"><h4>8</h4></div>
+              <div class="item"><h4>9</h4></div>
+              <div class="item"><h4>10</h4></div>
+              <div class="item"><h4>11</h4></div>
+              <div class="item"><h4>12</h4></div>
+      </div>
+      
 
-        </div>
 
-    </div>
 <div id="map"></div>
 </div>
 

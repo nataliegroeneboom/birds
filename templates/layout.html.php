@@ -8,15 +8,14 @@
     <!-- jquery theme roller -->
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" />
 
+  <!-- Owl Carousel CSS -->
     <link rel="stylesheet" type="text/css" href="/libs/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/libs/css/owl.carousel.default.min.css" type="text/css">
-
+    <link rel="stylesheet" type="text/css" href="/libs/css/owl.theme.default.min.css" type="text/css">
 
     <!-- Bootstrap CSS -->
-
-   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen" />
     <link rel="stylesheet" type="text/css" href="/libs/css/style.css" />
-   <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" />
 
 </head>
 <body>
@@ -111,11 +110,17 @@ endif;
  </body> 
 <!-- /container -->
 
- jQuery (necessary for Bootstrap's JavaScript plugins)
-<script
+
+ <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> 
+
+        <!-- <script
+  src="https://code.jquery.com/jquery-2.0.0.min.js"
+  integrity="sha256-1IKHGl6UjLSIT6CXLqmKgavKBXtr0/jJlaGMEkh+dhw="
+  crossorigin="anonymous"></script> -->
+    
 
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>-->
 <script src="/libs/js/owl.carousel.min.js"></script>
@@ -215,17 +220,15 @@ function initMap() {
             zoom: 4,
             center: location
         });
-
         var markers = getMarkers();
         console.log(markers);
          var infowindow = new google.maps.InfoWindow();
 
     for (var i = 0, length = markers.length; i < length; i++) {
-
         var data = markers[i];
         console.log(data);
         latLng = new google.maps.LatLng(data['latitude'], data['longitude']);
-        //
+      
         // // Creating a marker and putting it on the map
         var marker = new google.maps.Marker({
             position: latLng,
@@ -247,8 +250,6 @@ function initMap() {
                     infowindow.close();
                     marker.open = false;
                 }
-
-
             }
         })(marker, i));
  }

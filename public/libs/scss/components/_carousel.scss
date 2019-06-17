@@ -1,40 +1,8 @@
-.owl-item{
-  height: 350px;
-  width: 250px;
-  overflow: hidden;
-  margin: 3px;
 
-  image{
-    border-radius: 0px;
-
-  }
-}
-.carousel-item{
-  position: relative;
-}
-
-.img-info{
-  position: absolute;
-  z-index: 2;
-  top: 0px;
-  opacity: 0;
- height: 100%;
-  width: 100%;
-  .img-position{
-    margin-top: 220px;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: #fff;
-    padding: 15px;
-    p{
-      color: #fff;
-    }
-  }
-&:hover{
-  opacity: 1;
-}
-}
 
 
 .owl-carousel{
-  height: 400px;
+ width: 100%;
+ height: auto;
+ overflow: hidden;
 }
