@@ -12,11 +12,11 @@ function previewImage(){
         reader.readAsDataURL(file);
     }
 }
-const ele = document.getElementsByClassName("content");
-const num = document.getElementsByClassName("content").length;
-for(i=0; i< num; i++){
-    $clamp(ele[i], {clamp: '100px', useNativeClamp:false})
-}
+
+
+$(".content").each(function(index,element){
+    $clamp(element, {clamp:'150px'});
+});
 
 $('.navbar-toggle').on('click', function() {
     $(this).toggleClass('open');
@@ -25,11 +25,20 @@ $('.navbar-toggle').on('click', function() {
 
 $(document).ready(function(){
     $(".owl-carousel").owlCarousel({
-        autoPlay: 3000,
-        loop:true,
-        items: 4,
-        itemsDesktop : [1199,3],
-        itemsDesktopSmall : [979,3]
+        loop: true,
+        margin: 10,
+        nav: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 3
+            }
+        }
     });
 });
 

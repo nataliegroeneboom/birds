@@ -49,23 +49,21 @@
     <div class="sighting-section">
         <h2>Bird Sightings</h2>
         <div class="owl-carousel owl-theme">
-              <div class="item"><h4>1</h4></div>
-              <div class="item"><h4>2</h4></div>
-              <div class="item"><h4>3</h4></div>
-              <div class="item"><h4>4</h4></div>
-              <div class="item"><h4>5</h4></div>
-              <div class="item"><h4>6</h4></div>
-              <div class="item"><h4>7</h4></div>
-              <div class="item"><h4>8</h4></div>
-              <div class="item"><h4>9</h4></div>
-              <div class="item"><h4>10</h4></div>
-              <div class="item"><h4>11</h4></div>
-              <div class="item"><h4>12</h4></div>
+            <?php foreach($sightings as $sighting){
+                echo "<div class='item'>";
+                    echo  "<img src='/files/{$sighting['fileName']}' />";
+                echo "</div>";
+            } 
+           
+            ?>
       </div>
       
 
+      <div style="width:100%; height:100%">
+          <div id="map">
+          </div>
+      </div>
 
-<div id="map"></div>
 </div>
 
 

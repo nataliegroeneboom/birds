@@ -110,19 +110,13 @@ endif;
  </body> 
 <!-- /container -->
 
-
- <script
+ 
+  <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script> 
 
-        <!-- <script
-  src="https://code.jquery.com/jquery-2.0.0.min.js"
-  integrity="sha256-1IKHGl6UjLSIT6CXLqmKgavKBXtr0/jJlaGMEkh+dhw="
-  crossorigin="anonymous"></script> -->
-    
 
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>-->
 <script src="/libs/js/owl.carousel.min.js"></script>
 
 
@@ -152,11 +146,13 @@ function initialize(){
   if(getRoute() == 1){
       initAutocomplete()
   }
-
+  // google.maps.event.addDomListener(window, 'resize', initMap);
+  //    google.maps.event.addDomListener(window, 'load', initMap);
 }
 
 
 var autocomplete;
+var bounds;
 
 function initAutocomplete() {
 
@@ -189,19 +185,19 @@ document.getElementById('lng').value = lng;
 
 }
 
-function geolocate() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var geolocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            var circle = new google.maps.Circle(
-                {center: geolocation, radius: position.coords.accuracy});
-            autocomplete.setBounds(circle.getBounds());
-        });
-    }
-}
+// function geolocate() {
+//     if (navigator.geolocation) {
+//         navigator.geolocation.getCurrentPosition(function(position) {
+//             var geolocation = {
+//                 lat: position.coords.latitude,
+//                 lng: position.coords.longitude
+//             };
+//             var circle = new google.maps.Circle(
+//                 {center: geolocation, radius: position.coords.accuracy});
+//             autocomplete.setBounds(circle.getBounds());
+//         });
+//     }
+// }
 function getMarkers(){
     var markers = <?php echo $coordinates == ''? 0 : $coordinates ?>;
      return markers;
@@ -212,6 +208,9 @@ function getRoute(){
     return route;
 }
 
+// map.fitBounds(new google.maps.LatLngBounds(new google.maps.LatLng(51.522, -0.136), new google.maps.LatLng(51.526, -0.12)))
+
+
 
 function initMap() {
     var location = {lat: -25.363, lng: 131.044};
@@ -220,13 +219,13 @@ function initMap() {
             zoom: 4,
             center: location
         });
+       
         var markers = getMarkers();
-        console.log(markers);
-         var infowindow = new google.maps.InfoWindow();
+        var infowindow = new google.maps.InfoWindow();
+       
 
-    for (var i = 0, length = markers.length; i < length; i++) {
+        for (var i = 0, length = markers.length; i < length; i++) {
         var data = markers[i];
-        console.log(data);
         latLng = new google.maps.LatLng(data['latitude'], data['longitude']);
       
         // // Creating a marker and putting it on the map
@@ -234,8 +233,9 @@ function initMap() {
             position: latLng,
             map: map,
         });
-
-
+   
+        
+        
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
                 var content = '<h5>' + markers[i]['place'] + '</h5>' +
@@ -252,9 +252,10 @@ function initMap() {
                 }
             }
         })(marker, i));
- }
-
+      } 
+  
 }
+
 
 
 
