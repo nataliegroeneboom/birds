@@ -1,5 +1,6 @@
 node_modules
 .ddev
 vendor/
-.idea/
+.idea/*
 .vscode/
+public/libs/scss/style.scss
