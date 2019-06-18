@@ -89,6 +89,10 @@
     margin: 20px 0;
 }
 
+.bird-list > .bird-primary, .bird-list > .bird-warning{
+    text-align: center;
+}
+
 @media(max-width: 480px){
 
         .bird-primary.submit{

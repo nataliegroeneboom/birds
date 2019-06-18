@@ -6,26 +6,27 @@ use \Natalie\DatabaseTable;
 class Bird{
     private $birdTable;
     private $categoryTable;
-    private $locationTable;
     private $sightingTable;
+    private $sessions;
 
 
 
     public function __construct(DatabaseTable $birdTable, 
                             DatabaseTable $categoryTable,
-                            DatabaseTable $locationTable,
-                            DatabaseTable $sightingTable){
+                            DatabaseTable $sightingTable,
+                            \Natalie\Authentication $sessions){
         $this->birdTable = $birdTable;
         $this->categoryTable = $categoryTable;
-        $this->locationTable = $locationTable;
         $this->sightingTable = $sightingTable;
+        $this->sessions = $sessions;
     }
 
+    
     public function delete(){
         $this->birdTable->delete($_POST['id']);
         if($_POST['image']!==''){
             $image = $_POST['image'];
-            if(!unlink('/files/'.$image)){
+            if(!unlink('files/'.$image)){
                 return;
             }
         }
@@ -80,7 +81,7 @@ class Bird{
             ];
 
             $sightings = $this->sightingTable->getSightingByBirdId($_GET['id']);
-
+            
             $title = $result['birdname'];
 
             return ['template' => 'individual.html.php',
@@ -97,10 +98,35 @@ class Bird{
 
     public function saveEdit(){
         $bird_variables = $_POST['bird'];
+        $message = [];
+
+        foreach($bird_variables as $key=>$value){
+          
+                switch($key):
+                    case 'image':
+                        break;
+                    case 'id':
+                        break;
+                    default:
+                        if($value==''){
+                            $error = "<div class='alert alert-danger'>{$key} field can't be empty</div>";
+                            array_push($message, $error);
+                        }
+               endswitch;  
+               
+            }
+    
+        if(!empty($message)){
+            $this->sessions->setError($message);
+            header('location:/bird/edit');
+            exit;
+        }
+        
+        
+        
         $file = new \File\Upload;
         $file->setImage($bird_variables['image']);
         if(!empty($_FILES['image']['name'])){
-
             if($file->uploadNewImage($_FILES['image'])){
             $file->deleteOldImage();
             $bird_variables['image'] = $file->getNewImage();

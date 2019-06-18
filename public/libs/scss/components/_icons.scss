@@ -1,8 +1,10 @@
 span.glyphicon{
     color: $cream;
-    &:hover{
-        color: #fff;
-    }
+   @media all and (max-width: 748px){
+       font-size: 15px;
+       margin-right: 7px;
+   }
+
 }
 .navbar-collapse{
  //   border-top: 1px solid $cream;

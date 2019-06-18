@@ -18,7 +18,7 @@ echo $message;
      <th>Bird</th>
         <th class="description">Description</th>
         <th>Category</th>
-        <th>Actions</th>
+        <th></th>
         </tr>
 
 

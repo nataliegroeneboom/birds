@@ -20,14 +20,14 @@
          </span>
       </div>
 
-      <div class="status">
+    <div class="status">
         <span class="indiv-label">Status:</span>
         <span>
           <?php echo "&nbsp;&nbsp; Least Concern"; ?>
         </span>
-      </div>
+     </div>
 
-        <?php if(isset($bird['audio'])): ?>
+       <?php if(isset($bird['audio'])): ?>
             <div class="audio">
                 <span>
                 <audio controls>
@@ -51,24 +51,43 @@
             <?php 
               
               foreach($sightings as $sighting){
+                $date = strtotime($sighting['postDate']);
+                $dateFormatted = date('d M y', $date);
                 echo "<div class='item'>";
-                    echo  "<img src='/files/{$sighting['fileName']}' />";
-                echo "</div>";
+                    echo "<img src='/files/{$sighting['fileName']}' />";
+                     echo "<div class='sighting-abs'>
+                              <div class='sighting-descrip'>
+                                  <span>posted by {$sighting['name']}</span>
+                                  <span>in {$sighting['place']}</span>
+                                  <span>on {$dateFormatted}</span>
+                              </div>
+                          </div>";  
+              echo "</div>";
                 } 
                 
             ?>
       </div>
       <?php if(empty($sightings)){
-                  echo "<div>There are no current sightings </div>";
+                  echo "<div>There are currently no sightings added </div>";
                 } ?>
       
       <a class="bird-primary sighting-btn" href="/sighting/create" >Add a Sighting</a>
 
       <div style="width:100%; height:100%">
           <div id="map">
-          </div>
       </div>
+     
 
 </div>
 
 
+
+<!-- 
+                        echo "<div class='sighting-abs'>
+                                  <div class='sighting-descrip'>
+                                      <span>User</span>
+                                      <span>location</span>
+                                      <span>date</span>
+                                  <div>
+                              </div>";
+            

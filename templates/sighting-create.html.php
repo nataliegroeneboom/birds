@@ -55,12 +55,7 @@
     </table>
 </form>
 
-<div id="locationField">
-      <input id="autocomplete"
-             placeholder="Enter your address"
-        
-             type="text"/>
-    </div>
+
 
 
 
