@@ -2,4 +2,19 @@
     td.actions{
         width: 120px;
     }
+
+  
+
+    @media all and (max-width: 480px){
+        td.bird, td.category{
+            font-size: 15px !important;
+            
+        }
+        .table>tbody>tr>td{
+            padding: 8px 3px;
+        }
+        .table>tbody>tr>td.bird, .table>tbody>tr>td.category{
+            padding-top: 20px
+        }
+    }
 }

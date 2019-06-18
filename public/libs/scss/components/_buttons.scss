@@ -76,13 +76,29 @@
     }
     
 }
+// owl-carousel
+.owl-next span, .owl-prev span{
+    font-size: 50px;
+    
+}
+
+//sighting button
+.sighting-btn{
+    width: 230px;
+    font-size: 20px;
+    margin: 20px 0;
+}
 
 @media(max-width: 480px){
 
         .bird-primary.submit{
           display: block;
           margin: 0 auto;
-          width: 80%;
+          width: 90%;
           padding: 15px 0;  
         } 
+
+        .btn.bird-primary, .bird-primary, .bird-warning{
+            padding: 12px 5px;  
+        }
 }

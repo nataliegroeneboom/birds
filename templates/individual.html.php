@@ -48,15 +48,21 @@
     <div class="sighting-section">
         <h2>Bird Sightings</h2>
         <div class="owl-carousel owl-theme">
-            <?php foreach($sightings as $sighting){
+            <?php 
+              
+              foreach($sightings as $sighting){
                 echo "<div class='item'>";
                     echo  "<img src='/files/{$sighting['fileName']}' />";
                 echo "</div>";
-            } 
-           
+                } 
+                
             ?>
       </div>
+      <?php if(empty($sightings)){
+                  echo "<div>There are no current sightings </div>";
+                } ?>
       
+      <a class="bird-primary sighting-btn" href="/sighting/create" >Add a Sighting</a>
 
       <div style="width:100%; height:100%">
           <div id="map">

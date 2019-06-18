@@ -140,15 +140,12 @@ class Bird{
             }
             
             $categories = $this->categoryTable->readAll('name');
-            $locations = $this->locationTable->readAll('name');
             return [
                 'template' => 'create.html.php',
                 'title' => $title,
                 'variables' => [
                     'categories' => $categories,
-                    'locations' => $locations,
                     'bird' => $bird_variables ?? null
-
                 ]
             ];
 

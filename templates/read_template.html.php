@@ -25,9 +25,9 @@ echo $message;
 
 <?php foreach($birds as $bird){ ?>
     <tr>
-        <td><?=$bird['name']?></td>
+        <td class="bird"><?=$bird['name']?></td>
         <td class="description"><p class="content"><?=$bird['description']?></p></td>
-        <td><?=$bird['category']?></td>
+        <td class="category"><?=$bird['category']?></td>
 
         <td class="actions">
 

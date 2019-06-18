@@ -38,29 +38,7 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": '';
       
             </td>
       </tr>
-      <tr>
-            <td class="label"><label for="location">Location</label></td>
-            <td>
-            <?php
-
-            echo "<select class='form-control' id='location' name='bird[location_id]'>";
-                echo "<option> Select Location... </option>";
-
-                foreach($locations as $location){
-                    echo "<option value='{$location['id']}' ";
-                    if($bird['location_id'] == $location['id']){
-                       echo "selected";
-                    }
-                   echo ">{$location['name']}</option>";
-                }
-
-
-            echo "</select>";
-            ?>
-
-
-            </td>
-        </tr>
+   
         <tr>
             <td class="label"><label for="status">Status</label></td>
             <td>

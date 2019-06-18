@@ -15,7 +15,9 @@
       font-size: $small-text;
     }
   }
-  
+  main{
+    min-height: 160px;
+  }
   
   
   .margin-bottom-1em{ margin-bottom:1em; }

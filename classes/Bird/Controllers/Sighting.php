@@ -27,6 +27,15 @@ class Sighting
 
 
     public function create(){
+        $message= [];
+        if(!$this->sessions->isLoggedIn()){
+            $error = "<div class='alert alert-danger'> You need to login to post bird sightings</div>";
+            array_push($message, $error);
+            $this->sessions->setError($message);
+            header('location:/login');
+            exit;
+
+        }
         $title = 'Add a Sighting';
         $birds = $this->birdTable->readAll('birdname');
         return [
@@ -57,8 +66,7 @@ class Sighting
                       $error = "<div class='alert alert-danger'>{$key} field can't be empty</div>";
                       array_push($message, $error);
                   }
-
-        endswitch;
+         endswitch;
 
         }
 
