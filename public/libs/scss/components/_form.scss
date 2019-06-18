@@ -13,7 +13,7 @@
     }
     input{
      display: inline-block;
-     width: 75%;   
+     width: 80%;   
     }
 }
 
@@ -67,12 +67,39 @@
     }
 
     @media(max-width: 480px){
-        td.label{
-            height: 20px;
-            label{
-                float: left;
+
+       form > table{
+          
+           td{
+               padding: 0px;
+               display: block;
+            &:nth-child(2){
+                width: 100%;
             }
+            label{
+                display: block;
+            
+            }  
+           }
+            td.label{
+                height: 20px;
+                
+            }
+            .hidden-small{
+                display: none;
+            }
+            .imageUpload{
+                display: block;
+                margin: 0 auto;
+                width: 80%;
+                padding: 15px 0px;
+                text-align: center;
+
+            }
+           
+          
         }
+
     }
  
 

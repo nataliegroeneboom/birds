@@ -84,12 +84,12 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": '';
             </td>
         </tr>
         <tr>
-            <td class="label"><label for="sound">MP3 sound clip</label></td>
+            <td class="label"><label for="sound" class="hidden-small">MP3 sound clip</label></td>
             <td><label class="imageUpload">choose mp3 sound<input type="file" value="audio" name="audioFile"></label>
                 </td>
         </tr>
         <tr>
-          <td class="label"><label for="files">
+          <td class="label"><label for="files" class="hidden-small">
             Photo</label>
           </td>
           <td>

@@ -1,10 +1,22 @@
 td{
     border: none;
-    
+    label{
+        font-size: 18px;
+    }
+    .form-control{
+        font-size: 18px;
+        height: 40px;
+        border-radius: 0px;
+    }
+    textarea.form-control{
+        height: 160px;
+    }
 }
+
 th{
     font-size: $sub-header;
     text-transform: uppercase;
+    
    @media(max-width:350px){
        font-size: $text;
    }
@@ -50,8 +62,15 @@ th{
  
 
 }
+table{
+    td:nth-child(2){
+        width: 75%;
+    }
+}
 
-.table-responsive{
+table.table-responsive{
     border: none;
+
+   
     
 }

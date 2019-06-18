@@ -29,7 +29,6 @@
 
         <?php if(isset($bird['audio'])): ?>
             <div class="audio">
-                <span class="indiv-label">Audio:</span>
                 <span>
                 <audio controls>
             <?php   echo  " <source src='/files/{$bird['audio']}' type='audio/mpeg'>

@@ -30,6 +30,7 @@
     padding: 2px 20px;
     width: 150px;
     font-size: $text;
+    
 }
 .bird-warning{
     background: $red;
@@ -74,4 +75,14 @@
     
     }
     
+}
+
+@media(max-width: 480px){
+
+        .bird-primary.submit{
+          display: block;
+          margin: 0 auto;
+          width: 80%;
+          padding: 15px 0;  
+        } 
 }
