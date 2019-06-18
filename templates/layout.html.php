@@ -185,19 +185,7 @@ document.getElementById('lng').value = lng;
 
 }
 
-// function geolocate() {
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(function(position) {
-//             var geolocation = {
-//                 lat: position.coords.latitude,
-//                 lng: position.coords.longitude
-//             };
-//             var circle = new google.maps.Circle(
-//                 {center: geolocation, radius: position.coords.accuracy});
-//             autocomplete.setBounds(circle.getBounds());
-//         });
-//     }
-// }
+
 function getMarkers(){
     var markers = <?php echo $coordinates == ''? 0 : $coordinates ?>;
      return markers;
@@ -219,7 +207,14 @@ function initMap() {
             zoom: 4,
             center: location
         });
-       
+       google.maps.event.addListener(map, "bounds_changed",function(){
+         var bounds = map.getBounds();
+         var NE = bounds.getNorthEast();
+         var SW = bounds.getSouthWest();
+         var strHTML = "North East: " + NE.lat() + ', ' + NE.lng() + 
+          " South West: " + SW.lat() + " , " + SW.lng();
+          console.log(strHTML);
+       })
         var markers = getMarkers();
         var infowindow = new google.maps.InfoWindow();
        
