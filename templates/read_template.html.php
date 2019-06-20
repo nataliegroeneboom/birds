@@ -8,7 +8,7 @@ echo $message;
 
 <div class='right-button-margin'>
    <a href='/bird/edit' class='btn bird-primary pull-right'>
-    <span class='glyphicon glyphicon-plus'></span> Create Bird </a>
+    <span class='glyphicon glyphicon-plus'></span> Add a new Bird </a>
   </div>
 
 

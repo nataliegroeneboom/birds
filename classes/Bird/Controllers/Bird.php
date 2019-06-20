@@ -109,7 +109,7 @@ class Bird{
                         break;
                     default:
                         if($value==''){
-                            $error = "<div class='alert alert-danger'>{$key} field can't be empty</div>";
+                            $error = "<div class=''>{$key} field can't be empty</div>";
                             array_push($message, $error);
                         }
                endswitch;  
@@ -140,8 +140,11 @@ class Bird{
         }
 
 
-
+            
         $result = $this->birdTable->save($bird_variables);
+        $message = $file->getMessage();
+    
+        $this->sessions->setError([$message['message']]);
         header('location:/home');
         exit;
 

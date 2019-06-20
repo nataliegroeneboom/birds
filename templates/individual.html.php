@@ -46,7 +46,7 @@
     </p>
   </div>
     <div class="sighting-section">
-        <h2>Bird Sightings</h2>
+        <h2>Sightings</h2>
         <div class="owl-carousel owl-theme">
             <?php 
               

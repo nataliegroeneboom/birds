@@ -28,7 +28,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/home">Bird Encyclopedia</a>
+        <a class="navbar-brand" href="/home">Birds of Australia</a>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -134,7 +134,8 @@ endif;
 
 <script src="/libs/js/main.js"></script>
 
-
+<!-- loop11 library -->
+<script src="//cdn.loop11.com/embed.js" type="text/javascript" async="async"></script>
 
 
 <!-- google maps -->
@@ -204,7 +205,7 @@ function initMap() {
     var location = {lat: -25.363, lng: 131.044};
     var map = new google.maps.Map(document.getElementById("map"),
         {
-            zoom: 4,
+            zoom: 3,
             center: location
         });
        google.maps.event.addListener(map, "bounds_changed",function(){

@@ -97,27 +97,27 @@ class Upload
                     $file_type = pathinfo($target_file, PATHINFO_EXTENSION);
                     if(!in_array($file_type, $allowedFiles)){
                         $result['type'] = 'error';
-                        $result['message'] = "Only JPG, JPEG, PNG, GIF files are allowed.";
+                        $result['message'] = "<div class='alert alert-danger'> Only JPG, JPEG, PNG, GIF files are allowed.</div>";
                         $result['path'] = false;
                     }
                     if($upload['size'] > $size){
                         $result['type'] = 'error';
-                        $result['message'] = "File should be less then ". $size . " bytes";
+                        $result['message'] = "<div class='alert alert-danger'> File should be less then {$size} bytes</div>";
                         $result['path'] = false;
                     }
                     if(file_exists($target_file)){
                         $result['type'] = 'error';
-                        $result['message'] = "Image already exists";
+                        $result['message'] = "<div class='alert alert-danger'>Image already exists</div>";
                         $result['path'] = false;
                     }
                     if(!isset($result['error'])){
                         if(move_uploaded_file($upload['tmp_name'], $target_file)){
                             $result['type'] = 'success';
-                            $result['message'] = "Image uploaded";
+                            $result['message'] = "<div class='alert alert-success'>Image has been sucessfully uploaded</div>";
                             $result['path'] = true;
                         }else{
                             $result['type'] = 'error';
-                            $result['message'] = "Image unable to be upload";
+                            $result['message'] = "<div class='alert alert-danger'> Image unable to be upload</div>";
                             $result['path'] = false;
                         }
                     }

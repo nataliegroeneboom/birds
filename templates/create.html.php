@@ -11,16 +11,16 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": '';
         <input type="hidden" name="bird[id]" value="<?=$bird['id'] ?? '' ?>">
         <input type="hidden" name="bird[image]" value="<?=$bird['image'] ?? '' ?>">
         <tr>
-            <td class="label"><label class="bird-create" for="name">Name</label></td>
+            <td class="label"><label class="bird-create" for="name">Name *</label></td>
             <td><input type='text' name="bird[birdname]" id="name" class='form-control' value="<?=$bird['birdname']?? '' ?>" required/></td>
         </tr>
         <tr>
-            <td class="label"><label class="bird-create"  for="description">Description</label></td>
+            <td class="label"><label class="bird-create"  for="description">Description *</label></td>
             <td><textarea name="bird[description]" id="description" rows="6" class='form-control' required><?=$bird['description']??''; ?></textarea></td>
         </tr>
 
         <tr>
-            <td class="label"><label class="bird-create"  for="category">Category</label></td>
+            <td class="label"><label class="bird-create"  for="category">Category *</label></td>
             <td>
 
   <select class='form-control' name='bird[category_id]' id="category" required>;
@@ -40,7 +40,7 @@ echo isset($result['message'])?"<p>{$result['message']}</p>": '';
       </tr>
    
         <tr>
-            <td class="label"><label class="bird-create" for="status">Status</label></td>
+            <td class="label"><label class="bird-create" for="status">Status *</label></td>
             <td>
                 <select class='form-control' id="status" name="bird[status]" required>
                     <option>Select Status...</option>

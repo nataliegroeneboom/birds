@@ -4,12 +4,18 @@
   color: #383127; }
 
 body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
   background-color: #E4DBBF;
   font-size: 18px;
   overflow-x: hidden; }
   @media (max-width: 540px) {
     body {
       font-size: 14px; } }
+
+main {
+  min-height: 160px; }
 
 .margin-bottom-1em {
   margin-bottom: 1em; }
@@ -200,36 +206,52 @@ div#blueimp-gallery div.modal {
       font-weight: bold;
       text-decoration: none; }
 
-.owl-item {
-  height: 350px;
-  width: 250px;
-  overflow: hidden;
-  margin: 3px; }
-  .owl-item image {
-    border-radius: 0px; }
+.owl-next span, .owl-prev span {
+  font-size: 50px; }
 
-.carousel-item {
-  position: relative; }
+.sighting-btn {
+  width: 230px;
+  font-size: 20px;
+  margin: 20px 0;
+  text-align: center; }
 
-.img-info {
-  position: absolute;
-  z-index: 2;
-  top: 0px;
-  opacity: 0;
-  height: 100%;
-  width: 100%; }
-  .img-info .img-position {
-    margin-top: 220px;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: #fff;
-    padding: 15px; }
-    .img-info .img-position p {
-      color: #fff; }
-  .img-info:hover {
-    opacity: 1; }
+.bird-list > .bird-primary, .bird-list > .bird-warning {
+  text-align: center; }
+
+@media (max-width: 480px) {
+  .bird-primary.submit {
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    padding: 15px 0; }
+  .btn.bird-primary, .bird-primary, .bird-warning {
+    padding: 12px 5px; } }
 
 .owl-carousel {
-  height: 400px; }
+  width: 100%;
+  height: auto;
+  overflow: hidden; }
+  .owl-carousel .item {
+    position: relative; }
+  .owl-carousel .sighting-abs {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0; }
+    .owl-carousel .sighting-abs:hover {
+      opacity: 1; }
+    .owl-carousel .sighting-abs .sighting-descrip {
+      position: absolute;
+      bottom: 0;
+      z-index: 2;
+      width: 100%;
+      padding: 15px 10px;
+      background-color: rgba(0, 0, 0, 0.4); }
+      .owl-carousel .sighting-abs .sighting-descrip span {
+        color: #FFFAF0;
+        font-size: 14px; }
 
 .errors {
   background: #DC5B21;
@@ -261,7 +283,7 @@ footer {
     text-transform: uppercase; }
   .user-form input {
     display: inline-block;
-    width: 75%; }
+    width: 80%; }
 
 @media only screen and (max-width: 768px) {
   .user-form {
@@ -300,11 +322,33 @@ input[type="file"] {
     box-shadow: 2px 2px 3px #A6A6A6;
     color: #E4DBBF; }
 
-@media (max-width: 480px) {
-  td.label {
-    height: 20px; }
-    td.label label {
-      float: left; } }
+.bird-create {
+  padding-top: 15px; }
+
+@media only screen and (max-width: 480px) {
+  select {
+    background: -webkit-linear-gradient(white, #666);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: white;
+    -webkit-appearance: none; }
+  form > table td {
+    padding: 0px;
+    display: block; }
+    form > table td:nth-child(2) {
+      width: 100%; }
+    form > table td label {
+      display: block;
+      text-align: left;
+      padding-left: 5px; }
+  form > table .hidden-small {
+    display: none; }
+  form > table .imageUpload {
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    padding: 15px 0px;
+    text-align: center; } }
 
 .hero {
   margin-top: -21px;
@@ -335,10 +379,27 @@ input[type="file"] {
 .bird-list td.actions {
   width: 120px; }
 
+.bird-list table td.description {
+  width: 60%; }
+
+@media all and (max-width: 990px) and (min-width: 480px) {
+  .bird-list table td.description {
+    width: 50%; } }
+
+@media all and (max-width: 480px) {
+  td.bird, td.category {
+    font-size: 15px !important; }
+  .table > tbody > tr > td {
+    padding: 8px 3px; }
+  .table > tbody > tr > td.bird, .table > tbody > tr > td.category {
+    padding-top: 20px; } }
+
 span.glyphicon {
   color: #E4DBBF; }
-  span.glyphicon:hover {
-    color: #fff; }
+  @media all and (max-width: 748px) {
+    span.glyphicon {
+      font-size: 15px;
+      margin-right: 7px; } }
 
 .navbar-collapse {
   border-color: #E4DBBF !important; }
@@ -392,9 +453,20 @@ span.glyphicon {
   -webkit-transform: translateY(-7px) rotate(-45deg);
           transform: translateY(-7px) rotate(-45deg); }
 
-#map {
-  height: 500px !important;
-  width: 700px; }
+html, body, #map {
+  width: 100%;
+  margin: 0px;
+  padding: 0px; }
+
+@media all and (max-width: 980px) {
+  #map {
+    height: 300px;
+    margin: 15px 0px;
+    margin-bottom: 40px; } }
+
+@media all and (min-width: 980px) {
+  #map {
+    height: 600px; } }
 
 .individual-top {
   display: grid;
@@ -404,24 +476,43 @@ span.glyphicon {
   .individual-top .individual-stats {
     background: rgba(0, 0, 0, 0.1);
     padding: 15px 20px;
-    font-size: 18px; }
+    font-size: 18px;
+    position: relative; }
     .individual-top .individual-stats .indiv-label {
       display: inline-block;
       width: 160px;
       font-size: 22px; }
       @media (max-width: 480px) {
         .individual-top .individual-stats .indiv-label {
+          width: 100px;
           font-size: 18px; } }
 
 .indiv-layout {
   grid-template-columns: auto auto; }
 
+.audio {
+  margin-top: 15px; }
+  @media all and (min-width: 771px) {
+    .audio {
+      position: absolute;
+      bottom: 15px; } }
+
+h2 {
+  font-size: 40px;
+  margin: 40px 10px; }
+
 @media only screen and (max-width: 768px) {
   .indiv-layout {
     grid-template-columns: auto;
     margin-bottom: 0px; }
-  .box {
-    margin: 7px 0; } }
+  .individual-image.box {
+    margin: 0; }
+  .individual-top > .box {
+    margin: 15px 0px; }
+  .individual-stats {
+    font-size: 18px; }
+  p {
+    font-size: 18px; } }
 
 @media only screen and (min-width: 1200px) and (max-width: 769) {
   .individual-image {
@@ -429,6 +520,15 @@ span.glyphicon {
 
 td {
   border: none; }
+  td label {
+    font-size: 18px;
+    text-transform: uppercase; }
+  td .form-control {
+    font-size: 18px;
+    height: 40px;
+    border-radius: 0px; }
+  td textarea.form-control {
+    height: 160px; }
 
 th {
   font-size: 22px;
@@ -466,7 +566,10 @@ th {
   .description {
     width: 700px; } }
 
-.table-responsive {
+table td:nth-child(2) {
+  width: 75%; }
+
+table.table-responsive {
   border: none; }
 
 @media (min-width: 768px) {
