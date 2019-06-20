@@ -23,6 +23,7 @@ class Bird{
 
     
     public function delete(){
+
         $this->birdTable->delete($_POST['id']);
         if($_POST['image']!==''){
             $image = $_POST['image'];

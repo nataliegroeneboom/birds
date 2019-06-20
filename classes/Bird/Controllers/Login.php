@@ -52,5 +52,12 @@ class Login{
             'title' => 'You have been logged out'
         ];
     }
+
+    public function unauthorised(){
+        return [
+            'template' => 'unauthorised.html.php',
+            'title' => 'Unauthorised page'
+        ];
+    }
     
 }

@@ -39,6 +39,10 @@ namespace Natalie;
             if(isset($routes[$this->route]['login']) && $routes[$this->route]['login'] && !$authentication->isLoggedIn()){
                 header('location: /login/error');
             }else{
+                if(isset($routes[$this->route]['admin']) && $routes[$this->route]['admin'] && !$authentication->isAdmin()){
+                    header('TTP/1.0 403 Forbidden', true, 403);
+                    exit;
+                }
                 $controller = $routes[$this->route][$this->method]['controller'];
                 $action = $routes[$this->route][$this->method]['action'];
                 $page_redirect = $controller->$action();

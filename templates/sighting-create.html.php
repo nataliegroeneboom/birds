@@ -2,7 +2,7 @@
 <form action="" method="post" enctype="multipart/form-data" id="create-sighting">
     <table class='table table-hover table-responsive table-bordered'>
         <tr>
-            <td><label for="sighting[birdId]">Category</label></td>
+            <td><label for="sighting[birdId]">Type of Bird *</label></td>
             <td>
                 <select class='form-control' name='sighting[birdId]' id="bird-sighting">
                     <option value disabled selected>Select bird...</option>
@@ -15,7 +15,7 @@
             </td>   
         </tr>
         <tr>
-            <td><label for="sighting[body]">Add Details about your sighting</label></td>
+            <td><label for="sighting[body]">Add Details about your sighting *</label></td>
              <td>  
                 <textarea class="form-control" name="sighting[body]"cols="30" rows="10" placeholder="Add where you saw the bird and any further information"></textarea>
             </td>
@@ -31,7 +31,7 @@
         </tr>
         <tr>
         <tr>
-            <td><label for="">Location</label></td>
+            <td><label for="">Location of Sighting *</label></td>
             <td><div id="locationField">
                 <input  id="autocomplete"
                         placeholder="Enter your address"

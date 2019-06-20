@@ -84,7 +84,7 @@ class BirdRoutes implements \Natalie\Routes {
                       'controller' => $loginController,
                       'action' => 'error'
                   ]
-                  ], 
+                  ],  
                'logout' => [
                     'GET' => [
                         'controller' => $loginController,
@@ -106,14 +106,16 @@ class BirdRoutes implements \Natalie\Routes {
                     'controller' => $birdController,
                     'action' => 'edit'
                 ],
-                'login' => true
+                'login' => true,
+                'admin' => true
             ],
             'bird/delete' => [
                 'POST' => [
                     'controller' => $birdController,
                     'action' => 'delete'
                 ],
-                'login' => true
+                'login' => true,
+                'admin' => true
             ],
             'home' => [
               'GET' => [
@@ -135,7 +137,8 @@ class BirdRoutes implements \Natalie\Routes {
                 'POST' => [
                     'controller' => $sightingsController,
                     'action' => 'store'
-                ]
+                ],
+               'login' => true
             ]
         ];
 

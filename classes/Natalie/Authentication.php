@@ -22,6 +22,7 @@ class Authentication {
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $user[0][$this->passwordColumn];
             $_SESSION['userId'] = $user[0]['id'];
+            $_SESSION['admin'] = $user[0]['admin'];
             return true;
         }else{
             return false;
@@ -38,6 +39,19 @@ class Authentication {
                 return true;
         }
         return false;
+    }
+
+    public function isAdmin()
+    {
+        if(empty($_SESSION['username'])) {
+            return false;
+        }else{
+            if($_SESSION['admin']){
+                return true;
+            }
+            return false;
+        }
+
     }
 
     public function setError($error){
